@@ -33,16 +33,16 @@
         <div class="card-body">
           <form method="POST" action="{{ url('/admin/signin') }}">
             {{ csrf_field() }}
-            <div class="form-group{{ $errors->has('username') ? ' error' : '' }}">
-              <input type="text" class="form-control" id="username" placeholder="Username">
+            <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username">
               @if ($errors->has('username'))
                 <span class="help-block">
                   <strong>{{ $errors->first('username') }}</strong>
                 </span>
               @endif
             </div>
-            <div class="form-group{{ $errors->has('password') ? ' error' : '' }}">
-              <input type="password" class="form-control" id="password" placeholder="Password">
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
               @if ($errors->has('password'))
                 <span class="help-block">
                   <strong>{{ $errors->first('password') }}</strong>

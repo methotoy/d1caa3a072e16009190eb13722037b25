@@ -57,7 +57,6 @@ class SigninController extends Controller
      */
     public function signin(Request $request)
     {
-        // return response()->json($request);
         $this->validateLogin($request);
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the signin attempts for this application. We'll key this by the username and

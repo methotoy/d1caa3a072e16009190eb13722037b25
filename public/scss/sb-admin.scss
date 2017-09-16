@@ -9,3 +9,13 @@
 @import "navbar_toggle.scss";
 @import "login.scss";
 @import "footer.scss";
+
+.has-error {
+	.form-control {
+		border-color: #a94442;
+	}
+
+	.help-block {
+		color: #a94442;
+	}
+}

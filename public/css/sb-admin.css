@@ -349,3 +349,9 @@ footer.sticky-footer {
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {
     width: calc(100% - 55px); } }
+
+.has-error .form-control {
+  border-color: #a94442; }
+
+.has-error .help-block {
+  color: #a94442; }
