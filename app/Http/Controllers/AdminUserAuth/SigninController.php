@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AdminUserAuth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 
-class AdminSigninController extends Controller
+class SigninController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class AdminSigninController extends Controller
      */
     public function showSigninForm()
     {
-        return view('auth.admin-signin');
+        return view('admin.login');
     }
 
     /**
@@ -57,6 +57,7 @@ class AdminSigninController extends Controller
      */
     public function signin(Request $request)
     {
+        // return response()->json($request);
         $this->validateLogin($request);
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the signin attempts for this application. We'll key this by the username and
