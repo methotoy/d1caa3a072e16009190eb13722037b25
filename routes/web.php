@@ -34,8 +34,8 @@ Route::prefix('owner')->group(function () {
 	Route::post('signout', 'OwnerUserAuth\SigninController@signout');
 
 	// Registration Routes...
-	Route::get('register', 'OwnerUserAuth\RegisterController@showRegistrationForm');
-	Route::post('register', 'OwnerUserAuth\RegisterController@register');
+	Route::get('signup', 'OwnerUserAuth\SignupController@showSignupForm');
+	Route::post('signup', 'OwnerUserAuth\SignupController@signup');
 
 	// Password Reset Routes...
 	Route::get('password/reset', 'OwnerUserAuth\ForgotPasswordController@showLinkRequestForm');
