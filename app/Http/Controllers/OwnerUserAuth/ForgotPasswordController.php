@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Http\Request;
 use UnexpectedValueException;
-
 use App\User as User;
 
 class ForgotPasswordController extends Controller

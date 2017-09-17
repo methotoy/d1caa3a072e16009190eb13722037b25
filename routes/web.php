@@ -1,13 +1,19 @@
 <?php
 
+// Normal Routes
+
+Route::get('/', function () {
+	return redirect('/home');
+});
+
 // Authentication Routes...
 Route::get('signin', 'NormalUserAuth\SigninController@showSigninForm')->name('signin');
 Route::post('signin', 'NormalUserAuth\SigninController@signin');
 Route::post('signout', 'NormalUserAuth\SigninController@signout')->name('signout');
 
 // Registration Routes...
-Route::get('register', 'NormalUserAuth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'NormalUserAuth\RegisterController@register');
+Route::get('signup', 'NormalUserAuth\SignupController@showSignupForm')->name('signup');
+Route::post('signup', 'NormalUserAuth\SignupController@register');
 
 // Password Reset Routes...
 Route::get('password/reset', 'NormalUserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -16,9 +22,6 @@ Route::get('password/reset/{token}', 'NormalUserAuth\ResetPasswordController@sho
 Route::post('password/reset', 'NormalUserAuth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index');
-Route::get('/', function () {
-	return redirect('/home');
-});
 
 
 // Owner Routes
