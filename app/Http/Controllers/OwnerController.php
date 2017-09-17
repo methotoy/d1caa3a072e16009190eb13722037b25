@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class OwnerController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('owner');
+    }
+
     /**
      * Show the application dashboard.
      *

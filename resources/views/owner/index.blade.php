@@ -1,4 +1,4 @@
-@extends('owner.layouts.master')
+@extends('layouts.master')
 
 @section('title','Owner Home')
 

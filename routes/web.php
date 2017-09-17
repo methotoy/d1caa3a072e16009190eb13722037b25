@@ -43,7 +43,7 @@ Route::prefix('owner')->group(function () {
 	Route::get('password/reset/{token}', 'OwnerUserAuth\ResetPasswordController@showResetForm');
 	Route::post('password/reset', 'OwnerUserAuth\ResetPasswordController@reset');
 
-	Route::get('/home', 'OwnerController@index');
+	Route::get('home', 'OwnerController@index');
 
 });
 
