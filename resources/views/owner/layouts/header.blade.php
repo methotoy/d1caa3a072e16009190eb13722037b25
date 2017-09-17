@@ -24,7 +24,7 @@
                                     {{ csrf_field() }}
                                 </form>
                             @else
-                                <a href="/owner/signin" class="log">Sign in</a>
+                                <a href="/signin" class="log">Sign in</a>
                             @endif
                         </div>
                     </div>
