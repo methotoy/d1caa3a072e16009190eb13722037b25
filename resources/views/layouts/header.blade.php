@@ -63,9 +63,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right main_menu">
-                            <li class="active"><a href="#header">Home <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
                             <li class=""><a href="#welcome">Explore</a></li>
                             <li class=""><a href="#portfolio">Promos</a></li>
+                            <li class=""><a href="/booking">Booking</a></li>
                             <li class=""><a href="#counter">News & Articles</a></li>
                         </ul>
                     </div>
