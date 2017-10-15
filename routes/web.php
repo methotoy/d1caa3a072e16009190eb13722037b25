@@ -6,6 +6,8 @@ Route::get('/', function () {
 	return redirect('/home');
 });
 
+Route::get('/booking', 'BookingController@index');
+
 // Authentication Routes...
 Route::get('signin', 'NormalUserAuth\SigninController@showSigninForm')->name('signin');
 Route::post('signin', 'NormalUserAuth\SigninController@signin');

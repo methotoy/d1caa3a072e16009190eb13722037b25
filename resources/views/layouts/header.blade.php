@@ -66,7 +66,7 @@
                             <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
                             <li class=""><a href="#welcome">Explore</a></li>
                             <li class=""><a href="#portfolio">Promos</a></li>
-                            <li class=""><a href="/booking">Booking</a></li>
+                            <li class=""><a href="/booking">Hotels</a></li>
                             <li class=""><a href="#counter">News & Articles</a></li>
                         </ul>
                     </div>
