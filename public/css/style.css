@@ -7687,8 +7687,6 @@ section .container > h1, section .container > h2, section .container > h3 {
   #hotel-details h1 {
     color: #22c1f8;
     margin: 0px; }
-  #hotel-details h2 {
-    margin: 0px; }
   #hotel-details .tag-icon {
     border-radius: 5px;
     display: inline-block;
@@ -7696,13 +7694,32 @@ section .container > h1, section .container > h2, section .container > h3 {
     padding: 5px;
     width: 31px;
     height: 31px;
-    text-align: center; }
+    text-align: center;
+    background: #f5f6f6 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: #777; }
+    #hotel-details .tag-icon img {
+      width: 19px;
+      height: 19px;
+      display: block;
+      opacity: 0.7; }
   #hotel-details .hotel-rate {
     color: #22c1f8;
     margin: 10px 0px; }
     #hotel-details .hotel-rate span {
       font-weight: 700;
       font-size: 25px; }
+  #hotel-details .row {
+    margin-bottom: 15px; }
+  #hotel-details .right-container {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ddd; }
+    #hotel-details .right-container .boxed {
+      margin: 20px 5px 20px 5px; }
+      #hotel-details .right-container .boxed p {
+        font-family: "Quicksand", sans-serif; }
+        #hotel-details .right-container .boxed p i {
+          width: 15px; }
 
 .subscribe-email {
   background-color: #22c1f8;

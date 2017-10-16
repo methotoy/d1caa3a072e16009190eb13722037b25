@@ -150,8 +150,10 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
 
 #hotel-details{
   padding: 40px 0px;
-  h1{color: #22c1f8;margin: 0px;}
-  h2{margin: 0px;}
+  h1{
+    color: #22c1f8;
+    margin: 0px;
+  }
   .tag-icon{
     border-radius: 5px;
     display: inline-block;
@@ -160,11 +162,27 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
     width: 31px;
     height: 31px;
     text-align: center;
+    background: #f5f6f6 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: #777;
+    img{width: 19px;height: 19px;display: block;opacity: 0.7;}
   }
   .hotel-rate{
     color: #22c1f8;
     margin: 10px 0px;
     span{font-weight: 700;font-size: 25px;}
+  }
+  .row{margin-bottom: 15px;}
+  .right-container{
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    .boxed{
+      margin: 20px 5px 20px 5px;
+      p{
+        font-family: $f-quick;
+        i{width: 15px;}
+      }
+    }
   }
 }
 
