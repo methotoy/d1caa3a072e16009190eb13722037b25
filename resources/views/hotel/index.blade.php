@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title','Booking')
+@section('title','Hotels')
 
 @section('content')
 	
-	<section id="booking">
+	<section id="hotel">
       <div class="container">
 		  	<div class="search-area aligncenter">
 			    <form>
@@ -18,10 +18,10 @@
 			    </form>
 			  </div>
 
-			  <div class="container hotel-box">
+			  <div class="container hotel-container">
 					<div class="row">
 						<div class="col-md-4">
-						<img src="img/hotel.jpg" />
+						<img src="/img/hotel.jpg" />
 						</div>
 						<div class="col-md-8">
 							<div class="col-md-8">
@@ -30,108 +30,108 @@
 								<h5>Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sam...</h4>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/adsl.png">
+										<img src="/icons/adsl.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/baby-cot.png">
+										<img src="/icons/baby-cot.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/bath.png">
+										<img src="/icons/bath.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/free-parking.png">
+										<img src="/icons/free-parking.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/hairdryer.png">
+										<img src="/icons/hairdryer.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/lounge.png">
+										<img src="/icons/lounge.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/mini-bar.png">
+										<img src="/icons/mini-bar.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/non-smoking.png">
+										<img src="/icons/non-smoking.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/safe.png">
+										<img src="/icons/safe.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/shower.png">
+										<img src="/icons/shower.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/adsl.png">
+										<img src="/icons/adsl.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/baby-cot.png">
+										<img src="/icons/baby-cot.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/bath.png">
+										<img src="/icons/bath.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/free-parking.png">
+										<img src="/icons/free-parking.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/hairdryer.png">
+										<img src="/icons/hairdryer.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/lounge.png">
+										<img src="/icons/lounge.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/mini-bar.png">
+										<img src="/icons/mini-bar.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/non-smoking.png">
+										<img src="/icons/non-smoking.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/safe.png">
+										<img src="/icons/safe.png">
 									</div>
 								</div>
 								<div class="col-md-1 tag">
 									<div class="tag-container">
-										<img src="icons/shower.png">
+										<img src="/icons/shower.png">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4 aligncenter">
 								<h5 class="hotel-rate">From <span>₱ 5,000</span> / night</h5>
-								<button type="button" class="btn btn-info btn-block"><i class="fa fa-plus-circle"></i>  Read More</button>
+								<a href="/hotels/hotel-name" class="btn btn-info btn-block btn-a"><i class="fa fa-plus-circle"></i>  Read More</a>
 							</div>
 						</div>
 					</div>

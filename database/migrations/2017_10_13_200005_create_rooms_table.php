@@ -15,7 +15,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->unsigned();
+            $table->integer('hotel_id')->unsigned();
             $table->integer('type_id')->unsigned();
             $table->integer('rate_id')->unsigned();
             $table->integer('category_id')->unsigned();
@@ -25,9 +25,9 @@ class CreateRoomsTable extends Migration
             $table->string('status', 90)->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('hotel_id')
                 ->references('id')
-                ->on('companies');
+                ->on('hotels');
 
             $table->foreign('type_id')
                 ->references('id')

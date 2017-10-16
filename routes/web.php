@@ -6,7 +6,18 @@ Route::get('/', function () {
 	return redirect('/home');
 });
 
-Route::get('/booking', 'BookingController@index');
+
+Route::prefix('hotels')->group(function (){
+
+	Route::get('/', 'HotelController@index');
+	Route::get('{name}', 'HotelController@details');
+
+});
+
+
+
+
+
 
 // Authentication Routes...
 Route::get('signin', 'NormalUserAuth\SigninController@showSigninForm')->name('signin');

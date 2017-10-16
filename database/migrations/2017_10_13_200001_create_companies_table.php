@@ -13,9 +13,9 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('hotels', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type')->unsigned();
+            // $table->integer('type')->unsigned();
             $table->string('name', 90);
             $table->string('address', 90);
             $table->string('city', 90);
@@ -26,7 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->string('details', 90)->nullable();
             $table->timestamps();
 
-            $table->foreign('type')->references('id')->on('company_types');
+            // $table->foreign('type')->references('id')->on('company_types');
         });
     }
 

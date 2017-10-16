@@ -74,7 +74,7 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   /* ================ End Banner Area ===============*/
 }
 
-#featured,#blog,#booking{
+#featured,#blog,#hotel,#hotel-details{
   padding: 40px 0 60px;
   background: #f5f6f6;
   img{width: 100%;}
@@ -126,12 +126,13 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   .read_more_button{width: 100%;background-color: #253d52;display: block;float: none}
 }
 
-#booking {
-  .hotel-box {
+#hotel {
+  .hotel-container {
     border: 1px solid #e8e8e8;
     box-shadow: 0 1px 3px rgba(0,0,0,.09);
     background: #fff;
     .row{padding:30px 20px;}
+    .btn-a{line-height: 45px;}
   }
   .hotel-name{color: #22c1f8;margin: 0px;}
   .tag{
@@ -145,6 +146,26 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
     span{font-weight: 700;font-size: 25px;}
   }
   .btn{height: 60px;border-radius: 0px;}
+}
+
+#hotel-details{
+  padding: 40px 0px;
+  h1{color: #22c1f8;margin: 0px;}
+  h2{margin: 0px;}
+  .tag-icon{
+    border-radius: 5px;
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 5px;
+    width: 31px;
+    height: 31px;
+    text-align: center;
+  }
+  .hotel-rate{
+    color: #22c1f8;
+    margin: 10px 0px;
+    span{font-weight: 700;font-size: 25px;}
+  }
 }
 
 .subscribe-email {
