@@ -21,7 +21,7 @@
 			  <div class="container hotel-container">
 					<div class="row">
 						<div class="col-md-4">
-						<img src="/img/hotel.jpg" />
+							<img src="/img/hotel.jpg" />
 						</div>
 						<div class="col-md-8">
 							<div class="col-md-8">

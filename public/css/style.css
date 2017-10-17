@@ -7688,7 +7688,6 @@ section .container > h1, section .container > h2, section .container > h3 {
     color: #22c1f8;
     margin: 0px; }
   #hotel-details .tag-icon {
-    border-radius: 5px;
     display: inline-block;
     margin: 2px 2px 2px 0;
     padding: 5px;
@@ -7720,6 +7719,53 @@ section .container > h1, section .container > h2, section .container > h3 {
         font-family: "Quicksand", sans-serif; }
         #hotel-details .right-container .boxed p i {
           width: 15px; }
+    #hotel-details .right-container .map-boxed {
+      border: 1px solid #ddd;
+      background: #f5f6f6 none repeat scroll 0 0;
+      margin-bottom: 15px;
+      height: 506px; }
+  #hotel-details .rooms-container {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ddd; }
+    #hotel-details .rooms-container .room-header {
+      background: #232b38;
+      width: 100%;
+      height: 50px; }
+      #hotel-details .rooms-container .room-header h3 {
+        color: #22c1f8;
+        margin: 0;
+        line-height: 50px; }
+    #hotel-details .rooms-container .row {
+      margin: 15px; }
+    #hotel-details .rooms-container .room-details-container {
+      font-family: "Quicksand", sans-serif;
+      padding: 20px 5px;
+      border: 1px solid #ddd;
+      background: #f5f6f6 none repeat scroll 0 0; }
+      #hotel-details .rooms-container .room-details-container img {
+        height: 100%; }
+      #hotel-details .rooms-container .room-details-container .image-container {
+        width: 100%;
+        height: 300px;
+        max-height: 300px;
+        overflow: hidden; }
+        #hotel-details .rooms-container .room-details-container .image-container img {
+          width: 100%;
+          height: auto; }
+      #hotel-details .rooms-container .room-details-container .tag-container .tag-icon {
+        margin: 2px 2px -2px 0; }
+      #hotel-details .rooms-container .room-details-container .room-rate h5 {
+        color: #90CC90;
+        font-weight: 700;
+        font-size: 25px; }
+      #hotel-details .rooms-container .room-details-container .room-rate small {
+        text-decoration: line-through; }
+      #hotel-details .rooms-container .room-details-container .room-rate button {
+        border-radius: 0; }
+    #hotel-details .rooms-container hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(34, 193, 248, 0), rgba(34, 193, 248, 0.75), rgba(34, 193, 248, 0)); }
 
 .subscribe-email {
   background-color: #22c1f8;
