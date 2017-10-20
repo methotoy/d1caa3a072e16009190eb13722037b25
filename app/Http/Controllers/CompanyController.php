@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HotelController extends Controller
+class CompanyController extends Controller
 {
     public function index()
     {
-        return view('hotel.index');
+        return view('company.index');
     }
 
     public function details($name)
     {
-        return view('hotel.details');
+        return view('company.details');
     }
 }

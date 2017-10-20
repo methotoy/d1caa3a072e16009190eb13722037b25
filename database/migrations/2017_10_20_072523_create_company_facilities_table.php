@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookingStatusesTable extends Migration
+class CreateCompanyFacilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateBookingStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_statuses', function (Blueprint $table) {
+        Schema::create('company_facilities', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('company_id')->unsigned();
+            $table->text('json_data');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateBookingStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_statuses');
+        Schema::dropIfExists('company_facilities');
     }
 }

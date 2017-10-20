@@ -24,7 +24,7 @@
                                 
 
                             @if(Request::is('owner/*') && Auth::guard('owner')->check())
-                                <a href="/owner/dashboard" class="log">Dashboard</a>
+                                <a href="/owner/account" class="log">Account</a>
                                 <a href="#" id="signOutButton" class="log">Sign out</a>
                                 <form method="POST" id="signOutForm" action="{{ url('/owner/signout') }}" hidden>
                                     {{ csrf_field() }}

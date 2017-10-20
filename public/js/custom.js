@@ -15,3 +15,22 @@ if( $('#signOutButton').length ) {
 	});
 
 }
+
+if( $('#account #map').length ) {
+
+	$('#account #map').locationpicker({
+		location: {
+			latitude: 10.3098611200678,
+			longitude: 123.89315813194662
+		},
+		radius: 1,
+		inputBinding: {
+			latitudeInput: $('#account #map-lat'),
+			longitudeInput: $('#account #map-lng'),
+			locationNameInput: $('#account #address')
+		},
+		enableAutocomplete: true,
+		enableAutocompleteBlur: true
+	});
+
+}

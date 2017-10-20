@@ -25,21 +25,21 @@ class CreateRoomsTable extends Migration
             $table->string('status', 90)->nullable();
             $table->timestamps();
 
-            $table->foreign('hotel_id')
-                ->references('id')
-                ->on('hotels');
+            // $table->foreign('hotel_id')
+            //     ->references('id')
+            //     ->on('hotels');
 
-            $table->foreign('type_id')
-                ->references('id')
-                ->on('room_types');
+            // $table->foreign('type_id')
+            //     ->references('id')
+            //     ->on('room_types');
 
-            $table->foreign('rate_id')
-                ->references('id')
-                ->on('room_rates');
+            // $table->foreign('rate_id')
+            //     ->references('id')
+            //     ->on('room_rates');
 
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('room_categories');
+            // $table->foreign('category_id')
+            //     ->references('id')
+            //     ->on('room_categories');
         });
     }
 

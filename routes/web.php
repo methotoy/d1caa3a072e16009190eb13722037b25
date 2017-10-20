@@ -9,8 +9,8 @@ Route::get('/', function () {
 
 Route::prefix('hotels')->group(function (){
 
-	Route::get('/', 'HotelController@index');
-	Route::get('{name}', 'HotelController@details');
+	Route::get('/', 'CompanyController@index');
+	Route::get('{name}', 'CompanyController@details');
 
 });
 
@@ -38,10 +38,6 @@ Route::get('/home', 'HomeController@index');
 
 
 // Owner Routes
-Route::get('/owner', function() {
-	return redirect('/owner/home');
-});
-
 Route::prefix('owner')->group(function () {
 
 	// Authentication Routes...
@@ -59,7 +55,11 @@ Route::prefix('owner')->group(function () {
 	Route::get('password/reset/{token}', 'OwnerUserAuth\ResetPasswordController@showResetForm');
 	Route::post('password/reset', 'OwnerUserAuth\ResetPasswordController@reset');
 
-	Route::get('home', 'OwnerController@index');
+	Route::get('account', 'OwnerController@index');
+
+	Route::get('/', function() {
+		return redirect('/owner/account');
+	});
 
 });
 

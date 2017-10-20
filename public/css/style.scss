@@ -74,7 +74,7 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   /* ================ End Banner Area ===============*/
 }
 
-#featured,#blog,#hotel,#hotel-details{
+#featured,#blog,#hotel,#hotel-details,#account{
   padding: 40px 0 60px;
   background: #f5f6f6;
   img{width: 100%;}
@@ -238,6 +238,11 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
       background-image: linear-gradient(to right, rgba(34, 193, 248, 0), rgba(34, 193, 248, 0.75), rgba(34, 193, 248, 0));
     }
   }
+}
+
+#account{
+  .row{margin: 0px 15px;}
+  #map{margin-bottom: 20px;width: 100%;height: 500px;}
 }
 
 .subscribe-email {
