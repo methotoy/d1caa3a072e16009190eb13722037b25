@@ -57,6 +57,8 @@ Route::prefix('owner')->group(function () {
 
 	Route::get('account', 'OwnerController@index');
 
+	Route::get('rooms', 'OwnerController@rooms');
+
 	Route::get('/', function() {
 		return redirect('/owner/account');
 	});

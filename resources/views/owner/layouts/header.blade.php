@@ -5,13 +5,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero_mp">
                         <div class="address">
-                            @if(Request::is('owner/*') && Auth::guard('owner')->check())
-                                <i class="fa fa-envelope floatleft"></i>
-                                <p>{{ Auth::guard('owner')->user()->email }}</p>
-                            @elseif(Auth::guard()->check())
-                                    <i class="fa fa-envelope floatleft"></i>
-                                    <p>{{ Auth::guard()->user()->email }}</p>
-                            @endif
+                          <i class="fa fa-envelope floatleft"></i>
+                          <p>{{ Auth::guard('owner')->user()->email }}</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -20,24 +15,12 @@
                             <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-google-plus"></i></a>
                             <a href=""><i class="fa fa-youtube"></i></a>
-
-                                
-
-                            @if(Request::is('owner/*') && Auth::guard('owner')->check())
-                                <a href="/owner/account" class="log">Account</a>
-                                <a href="#" id="signOutButton" class="log">Sign out</a>
-                                <form method="POST" id="signOutForm" action="{{ url('/owner/signout') }}" hidden>
-                                    {{ csrf_field() }}
-                                </form>
-                            @elseif(Auth::guard()->check())
-                                <a href="/profile" class="log">Profile</a>
-                                <a href="#" id="signOutButton" class="log">Sign out</a>
-                                <form method="POST" id="signOutForm" action="{{ url('/signout') }}" hidden>
-                                    {{ csrf_field() }}
-                                </form>
-                            @else
-                                <a href="{{ url('/signin') }}" class="log">Sign in</a>
-                            @endif
+                            <a href="/owner/account" class="log">Account</a>
+                            <a href="/owner/rooms" class="log">Rooms</a>
+                            <a href="#" id="signOutButton" class="log">Sign out</a>
+                            <form method="POST" id="signOutForm" action="{{ url('/owner/signout') }}" hidden>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                     </div>
                     <!--End of col-md-4-->

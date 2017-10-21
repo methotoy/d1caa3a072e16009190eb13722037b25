@@ -103,6 +103,21 @@
 									<input type="text" class="form-control" id="description" name="description">
 								</div>
 
+								<div>
+									<label>Facilities</label>
+								</div>
+								@foreach ($facilities as $facility)
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<div class="checkbox checkbox-info">
+											<input id="checkbox{{ $facility->id }}" type="checkbox" name="facilities[]">
+												<label for="checkbox{{ $facility->id }}">
+												{{ $facility->name }}
+											</label>
+										</div>
+										
+									</div>
+								@endforeach
+
 								<div class="form-group">
 									<div class="col-sm-10 col-sm-offset-2">
 										<button type="submit" class="btn btn-info pull-right">Save</button>
