@@ -27,7 +27,8 @@ class CreateCompaniesTable extends Migration
             $table->integer('total_rooms');
             $table->integer('price_range');
             $table->string('information', 191)->nullable();
-            $table->text('description')->nullable();
+            $table->text('description');
+            $table->text('facilities');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

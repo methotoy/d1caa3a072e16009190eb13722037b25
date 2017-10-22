@@ -45,14 +45,16 @@ class User extends Authenticatable
         return ($this->role->type === 'Normal')? true : false;
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
     public function sendOwnerPasswordResetNotification($token)
     {
         $this->notify(new OwnerResetPasswordNotification($token));
+    }
+
+    public function company() {
+        if($this->isOwner()) {
+            return $this->hasOne(Company::class);
+        }
+
+        return false;
     }
 }

@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $table = 'companies';
-    
-    public function facilities()
+
+    protected $fillable = [
+            'user_id', 'name', 'address', 'zip_code', 'map_lat', 'map_lng', 'phone_number', 'fax_number', 'email_address', 'total_rooms', 'price_range', 'information', 'description', 'facilities', 'created_at', 'updated_at'
+    ];
+
+    public function user()
     {
-    	return $this->hasOne(CompanyFacility::class);
+    	return $this->belongsTo(User::class);
     }
 }

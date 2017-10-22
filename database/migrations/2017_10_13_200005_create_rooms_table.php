@@ -15,14 +15,12 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hotel_id')->unsigned();
-            $table->integer('type_id')->unsigned();
-            $table->integer('rate_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->string('name', 191);
+            $table->integer('facilities');
             $table->integer('capacity');
-            $table->string('information', 90)->nullable();
             $table->string('details', 90)->nullable();
-            $table->string('status', 90)->nullable();
+            $table->string('status', 90)->default(1);
             $table->timestamps();
 
             // $table->foreign('hotel_id')

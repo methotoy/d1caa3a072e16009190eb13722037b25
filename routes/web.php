@@ -56,6 +56,7 @@ Route::prefix('owner')->group(function () {
 	Route::post('password/reset', 'OwnerUserAuth\ResetPasswordController@reset');
 
 	Route::get('account', 'OwnerController@index');
+	Route::post('account/{type}', 'OwnerController@updateAccount');
 
 	Route::get('rooms', 'OwnerController@rooms');
 

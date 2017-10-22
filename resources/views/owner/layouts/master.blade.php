@@ -12,6 +12,7 @@
 		<script src="{{ asset('/js/locationpicker.jquery.js') }}"></script>
 		<script src="{{ asset('js/Sortable.min.js') }}"></script>
 		<script src="{{ asset('js/Ply.min.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-notify.js') }}"></script>
 	</head>
 	<body data-spy="scroll" data-target="#nav" data-offset="50">
 		@include('owner.layouts.header')

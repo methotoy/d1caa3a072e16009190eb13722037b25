@@ -1,3 +1,26 @@
+baseUrl = window.location.origin;
+
+function notify(type,title,message,icon = null) {
+	$.notify({
+		title: title,
+		message: message,
+		icon: icon
+	},{
+		type: type,
+		z_index: 10000,
+		placement: {
+			from: 'bottom',
+			align: 'right'
+		},
+		animate: {
+			enter: 'animated fadeInUp',
+			exit: 'animated fadeOutUp'
+		},
+		delay: 5000,
+		mouse_over: 'pause'
+	});
+}
+
 if ( $('.panel-heading').length ) {
 
     $('.panel-heading').on('click',function(e){
@@ -16,12 +39,28 @@ if( $('#signOutButton').length ) {
 
 }
 
+$.fn.disable = function() {
+    return this.each(function() {
+        if (typeof this.disabled != "undefined") this.disabled = true;
+    });
+}
+
+$.fn.enable = function() {
+    return this.each(function() {
+        if (typeof this.disabled != "undefined") this.disabled = false;
+    });
+}
+
 if( $('#account #map').length ) {
+
+	if($('#account #map-lat').val() && $('#account #map-lng').val()) {
+		$('#account #map *').disable();
+	}
 
 	$('#account #map').locationpicker({
 		location: {
-			latitude: 10.3098611200678,
-			longitude: 123.89315813194662
+			latitude: $('#account #map-lat').val(),
+			longitude: $('#account #map-lng').val()
 		},
 		radius: 1,
 		inputBinding: {
@@ -30,15 +69,107 @@ if( $('#account #map').length ) {
 			locationNameInput: $('#account #address')
 		},
 		enableAutocomplete: true,
-		enableAutocompleteBlur: true
+		enableAutocompleteBlur: true,
+		markerDraggable: $('#account #map-lat').val()? false : true,
+		zoom: 15
 	});
 
 }
 
-var container = document.getElementById('drag');
-var  sort = Sortable.create(container,{
-	group: 'room',
-	animation: 150,
-	draggable: '.room',
-	handle: '.drag-handle'
+
+if( $('#rooms #drag').length ) {
+	Sortable.create(document.getElementById('drag'),{
+		group: 'room',
+		animation: 150,
+		draggable: '.room',
+		handle: '.drag-handle'
+	});
+}
+
+$('#form_company').submit(function(event){
+	event.preventDefault();
+	let buttonText = $(this).find('button[type="submit"]')[0].innerText;
+
+	if(buttonText === 'Save' || buttonText === 'Update') {
+		$.ajax({
+			type: "POST",
+			url: baseUrl + '/owner/account/company',
+			data: $(this).serialize(),
+			success: function(data) {
+				$('#form_company').find('button[type="submit"]')[0].innerText = "Edit";
+				$('#form_company').find(':input').prop('disabled', true);
+				$('#form_company').find('button[type="submit"]').prop('disabled', false);
+
+				$('#account #map').locationpicker({
+					location: {
+						latitude: $('#account #map-lat').val(),
+						longitude: $('#account #map-lng').val()
+					},
+					radius: 1,
+					inputBinding: {
+						latitudeInput: $('#account #map-lat'),
+						longitudeInput: $('#account #map-lng'),
+						locationNameInput: $('#account #address')
+					},
+					enableAutocomplete: true,
+					enableAutocompleteBlur: true,
+					markerDraggable: false,
+					// zoom: 15
+				});
+
+				notify(
+					data.status,
+					data.status == 'success'? '<strong>Success!</strong>' : '<strong>Error!</strong>',
+					'Company Information Successfully '+data.method+'d!',
+					data.status == 'success'? 'fa fa-thumbs-up' : 'fa fa-exclamation-circle'
+				);
+			},
+			error: function(data) {
+
+				response = data.responseJSON;
+
+				$('#form_company').find('.has-error').each(function(i) {
+					$(this).removeClass('has-error has-feedback');
+				});
+
+				if(response && response.hasOwnProperty('errors')) {
+					for(let element_id in response.errors) {
+						$('#'+element_id).parent().addClass('has-error has-feedback');
+						notify(
+							'danger',
+							'<strong>Attention!</strong>',
+							response.errors[element_id],
+							'fa fa-exclamation-circle'
+						);
+					}
+				}
+
+				$('#form_company').find(':input').each(function(i) {
+					if($(this).parent().hasClass('has-error')){
+						$(this).focus();
+						return false;
+					}
+				});
+			}
+		});
+	} else {
+		$(this).find('button[type="submit"]')[0].innerText = "Update";
+		$(this).find(':input').prop('disabled', false);
+		$('#account #map').locationpicker({
+			location: {
+				latitude: $('#account #map-lat').val(),
+				longitude: $('#account #map-lng').val()
+			},
+			radius: 1,
+			inputBinding: {
+				latitudeInput: $('#account #map-lat'),
+				longitudeInput: $('#account #map-lng'),
+				locationNameInput: $('#account #address')
+			},
+			enableAutocomplete: true,
+			enableAutocompleteBlur: true,
+			markerDraggable: true,
+			zoom: 15
+		});
+	}
 });
