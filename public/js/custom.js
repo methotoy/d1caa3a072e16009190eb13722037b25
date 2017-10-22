@@ -35,4 +35,10 @@ if( $('#account #map').length ) {
 
 }
 
-
+var container = document.getElementById('drag');
+var  sort = Sortable.create(container,{
+	group: 'room',
+	animation: 150,
+	draggable: '.room',
+	handle: '.drag-handle'
+});

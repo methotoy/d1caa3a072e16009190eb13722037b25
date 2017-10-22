@@ -7778,8 +7778,21 @@ section .container > h1, section .container > h2, section .container > h3 {
 #rooms .btn-add {
   margin-bottom: 15px; }
 
-#rooms #sortable {
-  list-style-type: none; }
+#rooms #drag {
+  padding: 0;
+  padding-top: 15px; }
+
+#rooms .drag-handle {
+  cursor: move;
+  color: black; }
+
+#rooms .drag-filter {
+  cursor: pointer;
+  color: red; }
+
+#rooms .drag-edit {
+  cursor: pointer;
+  color: black; }
 
 .subscribe-email {
   background-color: #22c1f8;

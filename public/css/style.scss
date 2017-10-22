@@ -247,8 +247,10 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
 
 #rooms{
   .btn-add{margin-bottom: 15px;}
-  #sortable{list-style-type: none;}
-  // #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
+  #drag{padding: 0;padding-top: 15px;}
+  .drag-handle{cursor: move;color: black;}
+  .drag-filter{cursor: pointer;color: red;}
+  .drag-edit{cursor: pointer;color: black;}
 }
 
 .subscribe-email {
