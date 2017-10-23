@@ -12,25 +12,28 @@
 				<div class="panel-body">
 					<div class="row clearfix">
 						<div class="col-lg-8 col-lg-offset-2">
-							<form action="" method="POST" class="form-horizontal" role="form">
+							<form method="POST" onkeypress="return event.keyCode != 13;" id="form_personal" class="form-horizontal" role="form">
+								{{ csrf_field() }}
+								<input type="hidden" value="{{ Auth::guard('owner')->user()->id }}" hidden>
+
 								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
+									<label for="firstname" class="col-sm-2 control-label">First Name</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputEmail3" value="{{ Auth::guard('owner')->user()->firstname }}" disabled>
+										<input type="text" class="form-control" id="firstname" name="firstname" value="{{ Auth::guard('owner')->user()->firstname }}" disabled>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">Last Name</label>
+									<label for="lastname" class="col-sm-2 control-label">Last Name</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputPassword3" value="{{ Auth::guard('owner')->user()->lastname }}" disabled>
+										<input type="text" class="form-control" id="lastname" name="lastname" value="{{ Auth::guard('owner')->user()->lastname }}" disabled>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">Email</label>
+									<label for="email" class="col-sm-2 control-label">Email</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputPassword3" value="{{ Auth::guard('owner')->user()->email }}" disabled>
+										<input type="text" class="form-control" id="email" name="email" value="{{ Auth::guard('owner')->user()->email }}" disabled>
 									</div>
 								</div>
 
@@ -117,7 +120,7 @@
 									@foreach ($facilities as $facility)
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="checkbox checkbox-info">
-												<input id="checkbox{{ $facility->id }}" type="checkbox" name="facilities[]" value="{{ $facility->id }}" disabled>
+												<input id="checkbox{{ $facility->id }}" type="checkbox" name="facilities[]" value="{{ $facility->id }}" disabled {{ $facility->status }}>
 													<label for="checkbox{{ $facility->id }}">
 													{{ $facility->name }}
 												</label>

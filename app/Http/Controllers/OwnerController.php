@@ -17,21 +17,21 @@ class OwnerController extends Controller
 
     public function index()
     {
-        // $user = \Auth::guard('owner')->user();
-        // $facilities = Facility::all();
-        // $data = Array(
-        //     Array('id' => 1),
-        //     Array('id' => 2)
-        // );
-        
-        // dd($data);
+        $selectedFacilites = \Auth::guard('owner')->user()->company->facilities;
+        $facilities = Facility::all();
 
+        $selectedFacilites = array_map('intval', explode(",", $selectedFacilites));
+        $test = array();
 
-        // foreach ($facilities as $facility) {
-        //   $facility->status = 'checked';
-        // }
+        foreach ($facilities as $facility) {
+            if(in_array($facility->id, $selectedFacilites)){
+              $facility->status = 'checked';
+            } else {
+                $facility->status = '';
+            }
+        }
 
-        return view('owner.index')->with('facilities', Facility::all());
+        return view('owner.index')->with('facilities', $facilities);
     }
 
     public function rooms()
@@ -41,6 +41,8 @@ class OwnerController extends Controller
 
     public function updateAccount( $type )
     {
+        $success = false;
+
         if($type === 'company') {
             $data = $this->validate(request(), [
                 'address' => 'required',
@@ -64,12 +66,20 @@ class OwnerController extends Controller
                 $success = Company::find(request()->id)->update($data);
             } else {
                 $success = Company::insert($data);
-            }
-
-            return response()->json([
-                'status' => $success? 'success' : 'danger',
-                'method' => request()->has('id')? 'Update' : 'Save'
+            }            
+        } else {
+            $data = $this->validate(request(), [
+                'firstname' => 'required',
+                'lastname'  => 'required',
+                'email' => 'required|email',
             ]);
+
+            $success = \Auth::guard('owner')->user()->update($data);
         }
+
+        return response()->json([
+            'status' => $success? 'success' : 'danger',
+            'method' => request()->has('id')? 'Update' : 'Save'
+        ]);
     }
 }

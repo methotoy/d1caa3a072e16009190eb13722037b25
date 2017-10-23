@@ -146,7 +146,7 @@ $('#form_company').submit(function(event){
 				notify(
 					data.status,
 					data.status == 'success'? '<strong>Success!</strong>' : '<strong>Error!</strong>',
-					'Company Information Successfully '+data.method+'d!',
+					data.status == 'success'? 'Company Information Successfully '+data.method+'d!' : 'There was an error on updating your personal information! Please contact us about this problem!',
 					data.status == 'success'? 'fa fa-thumbs-up' : 'fa fa-exclamation-circle'
 				);
 			},
@@ -183,5 +183,42 @@ $('#form_company').submit(function(event){
 		$(this).find(':input').prop('disabled', false);
 		$(this).find('#map').css('z-index', '99');
 		$(this).find('#map-hidden').css('z-index', '100');
+	}
+});
+
+$('#form_personal').submit(function(event){
+	event.preventDefault();
+
+	let buttonText = $(this).find('button[type="submit"]')[0].innerText;
+
+	if(buttonText === 'Update') {
+		$.ajax({
+			type: "POST",
+			url: baseUrl + '/owner/account/personal',
+			data: $(this).serialize(),
+			success: function(data) {
+				notify(
+					data.status,
+					data.status == 'success'? '<strong>Success!</strong>' : '<strong>Error!</strong>',
+					data.status == 'success'? 'Personal Information Successfully '+data.method+'d!' : 'There was an error on updating your personal information! Please contact us about this problem!',
+					data.status == 'success'? 'fa fa-thumbs-up' : 'fa fa-exclamation-circle'
+				);
+
+				$('#form_personal').find('button[type="submit"]')[0].innerText = "Edit";
+				$('#form_personal').find(':input').prop('disabled', true);
+				$('#form_personal').find('button[type="submit"]').prop('disabled', false);
+			},
+			error: function(data) {
+				notify(
+					'danger',
+					'<strong>Error!</strong>',
+					'There was an error on updating your personal information! Please contact us about this problem!',
+					'fa fa-exclamation-circle'
+				);
+			}
+		});
+	} else {
+		$(this).find('button[type="submit"]')[0].innerText = "Update";
+		$(this).find(':input').prop('disabled', false);
 	}
 });
