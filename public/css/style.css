@@ -8815,6 +8815,20 @@ section .container > h1, section .container > h2, section .container > h3 {
   width: 100%;
   height: 500px; }
 
+#account #map-hidden {
+  margin-bottom: 20px;
+  width: 100%;
+  height: 500px; }
+
+#account .map-container {
+  position: relative; }
+  #account .map-container #map {
+    position: absolute;
+    z-index: 100; }
+  #account .map-container #map-hidden {
+    position: absolute;
+    z-index: 99; }
+
 #rooms .btn-add {
   margin-bottom: 15px; }
 

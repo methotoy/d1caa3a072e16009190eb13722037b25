@@ -76,7 +76,10 @@
 									<input type="text" id="map-lat" name="map_lat" hidden value="{{ Auth::guard('owner')->user()->company->map_lat }}" />
 									<input type="text" id="map-lng" name="map_lng" hidden value="{{ Auth::guard('owner')->user()->company->map_lng }}" />
 
-									<div id="map" disabled></div>
+									<div class="map-container">
+										<div id="map"></div>
+										<div id="map-hidden"></div>
+									</div>
 
 									<div class="form-group">
 										<label for="phone_number" class="control-label">Phone</label>

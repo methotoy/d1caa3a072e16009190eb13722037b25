@@ -53,10 +53,6 @@ $.fn.enable = function() {
 
 if( $('#account #map').length ) {
 
-	if($('#account #map-lat').val() && $('#account #map-lng').val()) {
-		$('#account #map *').disable();
-	}
-
 	$('#account #map').locationpicker({
 		location: {
 			latitude: $('#account #map-lat').val(),
@@ -70,8 +66,22 @@ if( $('#account #map').length ) {
 		},
 		enableAutocomplete: true,
 		enableAutocompleteBlur: true,
-		markerDraggable: $('#account #map-lat').val()? false : true,
-		zoom: 15
+		markerDraggable: $('#account #map-lat').val()? false : true
+	});
+
+	$('#account #map-hidden').locationpicker({
+		location: {
+			latitude: $('#account #map-lat').val(),
+			longitude: $('#account #map-lng').val()
+		},
+		radius: 1,
+		inputBinding: {
+			latitudeInput: $('#account #map-lat'),
+			longitudeInput: $('#account #map-lng'),
+			locationNameInput: $('#account #address')
+		},
+		enableAutocomplete: true,
+		enableAutocompleteBlur: true
 	});
 
 }
@@ -112,10 +122,26 @@ $('#form_company').submit(function(event){
 						locationNameInput: $('#account #address')
 					},
 					enableAutocomplete: true,
-					enableAutocompleteBlur: true,
-					markerDraggable: false,
-					// zoom: 15
+					enableAutocompleteBlur: true
 				});
+
+				$('#account #map-hidden').locationpicker({
+					location: {
+						latitude: $('#account #map-lat').val(),
+						longitude: $('#account #map-lng').val()
+					},
+					radius: 1,
+					inputBinding: {
+						latitudeInput: $('#account #map-lat'),
+						longitudeInput: $('#account #map-lng'),
+						locationNameInput: $('#account #address')
+					},
+					enableAutocomplete: true,
+					enableAutocompleteBlur: true
+				});
+
+				$('#account #map').css('z-index', '100');
+				$('#account #map-hidden').css('z-index', '99');
 
 				notify(
 					data.status,
@@ -155,21 +181,7 @@ $('#form_company').submit(function(event){
 	} else {
 		$(this).find('button[type="submit"]')[0].innerText = "Update";
 		$(this).find(':input').prop('disabled', false);
-		$('#account #map').locationpicker({
-			location: {
-				latitude: $('#account #map-lat').val(),
-				longitude: $('#account #map-lng').val()
-			},
-			radius: 1,
-			inputBinding: {
-				latitudeInput: $('#account #map-lat'),
-				longitudeInput: $('#account #map-lng'),
-				locationNameInput: $('#account #address')
-			},
-			enableAutocomplete: true,
-			enableAutocompleteBlur: true,
-			markerDraggable: true,
-			zoom: 15
-		});
+		$(this).find('#map').css('z-index', '99');
+		$(this).find('#map-hidden').css('z-index', '100');
 	}
 });
