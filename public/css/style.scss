@@ -258,6 +258,27 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   .drag-handle{cursor: move;color: black;}
   .drag-filter{cursor: pointer;color: red;}
   .drag-edit,.drag-view{cursor: pointer;;color: black;}
+  .tag-icon{
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 5px;
+    width: 31px;
+    height: 31px;
+    text-align: center;
+    background: #f5f6f6 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: #777;
+    img{width: 19px;height: 19px;display: block;opacity: 0.7;}
+  }
+  .room-image{
+    margin-bottom: 15px;
+    img{width: 100%; height: auto;}
+  }
+}
+
+#addRoomModal{
+  .row{margin: 0px 15px 0 15px;}
+  textarea{resize: none;}
 }
 
 .subscribe-email {

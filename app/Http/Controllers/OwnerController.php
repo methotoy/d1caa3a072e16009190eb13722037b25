@@ -17,7 +17,7 @@ class OwnerController extends Controller
 
     public function index()
     {
-        $selectedFacilites = \Auth::guard('owner')->user()->company->facilities;
+        $selectedFacilites = ($company = \Auth::guard('owner')->user()->company)? $company->facilities : "";
         $facilities = Facility::all();
 
         $selectedFacilites = array_map('intval', explode(",", $selectedFacilites));
@@ -36,7 +36,10 @@ class OwnerController extends Controller
 
     public function rooms()
     {
-        return view('owner.rooms');
+        $facilities = Facility::all();
+        $rooms = ($company = \Auth::guard('owner')->user()->company)? $company->rooms : array();
+
+        return view('owner.rooms')->with(compact('facilities', 'rooms'));
     }
 
     public function updateAccount( $type )

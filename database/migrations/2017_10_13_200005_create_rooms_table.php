@@ -17,9 +17,10 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->string('name', 191);
-            $table->integer('facilities');
+            $table->string('information', 90)->nullable();
             $table->integer('capacity');
-            $table->string('details', 90)->nullable();
+            $table->integer('price');
+            $table->text('facilities');
             $table->string('status', 90)->default(1);
             $table->timestamps();
 
