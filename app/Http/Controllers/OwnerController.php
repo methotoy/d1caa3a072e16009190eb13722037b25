@@ -10,14 +10,20 @@ use App\Room as Room;
 
 class OwnerController extends Controller
 {
+    protected $user;
+
 	public function __construct()
     {
         $this->middleware('owner');
     }
 
+    private function user() {
+        return \Auth::guard('owner')->user();
+    }
+
     public function index()
     {
-        $selectedFacilites = ($company = \Auth::guard('owner')->user()->company)? $company->facilities : "";
+        $selectedFacilites = ($company = $this->user()->company)? $company->facilities : "";
         $facilities = Facility::all();
 
         $selectedFacilites = array_map('intval', explode(",", $selectedFacilites));
@@ -37,7 +43,22 @@ class OwnerController extends Controller
     public function rooms()
     {
         $facilities = Facility::all();
-        $rooms = ($company = \Auth::guard('owner')->user()->company)? $company->rooms : array();
+        $rooms = ($company = $this->user()->company)? $company->rooms : array();
+
+        dd($rooms->toJson());
+
+        // DIRE NAAAAAAAAAAHHHHHHHHHHHHHHH!!
+
+        if(!empty($rooms)) {
+            $fac = $facilities->keyBy('id');
+            foreach ($rooms as $room) {
+                $_temp = $fac->get($room->id);
+                dd([
+                    'id' => $room->id,
+                    'room' => $_temp->toJson()
+                ]);
+            }
+        }
 
         return view('owner.rooms')->with(compact('facilities', 'rooms'));
     }
@@ -63,7 +84,7 @@ class OwnerController extends Controller
             ]);
 
             $data['facilities'] = implode(",",$data['facilities']);
-            $data['user_id'] = \Auth::guard('owner')->user()->id;
+            $data['user_id'] = $this->user()->id;
 
             if(request()->has('id')) {
                 $success = Company::find(request()->id)->update($data);
@@ -77,12 +98,33 @@ class OwnerController extends Controller
                 'email' => 'required|email',
             ]);
 
-            $success = \Auth::guard('owner')->user()->update($data);
+            $success = $this->user()->update($data);
         }
 
         return response()->json([
             'status' => $success? 'success' : 'danger',
             'method' => request()->has('id')? 'Update' : 'Save'
         ]);
+    }
+
+    public function updateRoom( $type )
+    {
+        $responseMessage = array();
+
+        if($type === 'add') {
+            $data = $this->validate(request(), [
+                'name' => 'required',
+                'information' => 'required',
+                'capacity' => 'required|numeric',
+                'price' => 'required|numeric',
+                'facilities' => 'required'
+            ]);
+
+            $data['facilities'] = implode(",",$data['facilities']);
+
+            $responseMessage = $this->user()->company->rooms()->create($data);
+        }
+
+        return response()->json(compact('responseMessage'), 200);
     }
 }

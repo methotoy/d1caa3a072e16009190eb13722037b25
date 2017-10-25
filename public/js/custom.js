@@ -222,3 +222,21 @@ $('#form_personal').submit(function(event){
 		$(this).find(':input').prop('disabled', false);
 	}
 });
+
+$('#room_form').submit(function(event){
+	event.preventDefault();
+
+	let buttonText = $(this).find('button[type="submit"]')[0].innerText;
+
+	$.ajax({
+		type: "POST",
+		url: baseUrl + '/owner/rooms/' + buttonText.toLowerCase(),
+		data: $(this).serialize(),
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.error(data);
+		}
+	});
+});

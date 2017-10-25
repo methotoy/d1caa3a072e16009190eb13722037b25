@@ -18,12 +18,12 @@
 					</div>
 					@endif
 					<div class="col-md-12" id="drag">
-
+						@foreach($rooms as $room)
 						<div class="col-md-6 room">
 							<div class="panel panel-success">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										Room Name
+										{{ ucwords($room->name) }}
 										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true"></i>
 										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true"></i>
 										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true"></i>
@@ -33,15 +33,15 @@
 								<div class="panel-body">
 									<div class="col-md-12">
 										<h4>Information</h4>
-										<p>Sample Information Sample Information Sample Information Sample Information Sample Information Sample Information Sample Information Sample Information Sample Information Sample Information Sample Inf...</p>
+										<p>{{ (strlen($room->information) < 201-3) ? $room->information : substr($room->information, 0, 201-3)."..." }}</p>
 									</div>
 									<div class="col-md-12">
 										<h4>Price Range (per night)</h4>
-										<p>₱ 5,000</p>
+										<p>₱ {{ $room->price }}</p>
 									</div>
 									<div class="col-md-12">
 										<h4>Capacity</h4>
-										<p><i class="fa fa-male"></i> x 1000</p>
+										<p><i class="fa fa-male"></i> x {{ $room->capacity }}</p>
 									</div>
 									<div class="col-md-12">
 										<h4>Facilities</h4>
@@ -100,7 +100,7 @@
 								</div>
 							</div>
 						</div>
-
+						@endforeach
 					</div>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 				<div class="modal-body">
 					<div class="row clearfix">
 						<div class="col-md-12">
-							<form method="POST" class="form-horizontal" role="form" id="roomForm">
+							<form method="POST" class="form-horizontal" role="form" id="room_form">
 								{{ csrf_field() }}
 
 								<div class="form-group">

@@ -9,7 +9,7 @@ class Company extends Model
     protected $table = 'companies';
 
     protected $fillable = [
-            'user_id', 'name', 'address', 'zip_code', 'map_lat', 'map_lng', 'phone_number', 'fax_number', 'email_address', 'total_rooms', 'price_range', 'information', 'description', 'facilities', 'created_at', 'updated_at'
+            'user_id', 'name', 'address', 'zip_code', 'map_lat', 'map_lng', 'phone_number', 'fax_number', 'email_address', 'total_rooms', 'price_range', 'information', 'description', 'facilities'
     ];
 
     public function user()
