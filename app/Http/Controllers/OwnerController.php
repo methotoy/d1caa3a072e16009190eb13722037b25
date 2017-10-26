@@ -42,25 +42,27 @@ class OwnerController extends Controller
 
     public function rooms()
     {
-        $facilities = Facility::all();
+        $allFacilities = Facility::all();
         $rooms = ($company = $this->user()->company)? $company->rooms : array();
 
-        dd($rooms->toJson());
-
-        // DIRE NAAAAAAAAAAHHHHHHHHHHHHHHH!!
+        $_facilities = array();
 
         if(!empty($rooms)) {
-            $fac = $facilities->keyBy('id');
+            $fac = $allFacilities->keyBy('id');
+
             foreach ($rooms as $room) {
-                $_temp = $fac->get($room->id);
-                dd([
-                    'id' => $room->id,
-                    'room' => $_temp->toJson()
-                ]);
+                $_tempFacilityPath = array();
+
+                foreach (explode(",", $room->facilities) as $facility) {
+                    $_temp = $fac->get($facility);
+                    $_tempFacilityPath[] = $_temp->icon_path;
+                }
+
+                $room->facilities = $_tempFacilityPath;
             }
         }
 
-        return view('owner.rooms')->with(compact('facilities', 'rooms'));
+        return view('owner.rooms')->with(compact('allFacilities', 'rooms'));
     }
 
     public function updateAccount( $type )
@@ -109,6 +111,7 @@ class OwnerController extends Controller
 
     public function updateRoom( $type )
     {
+        $allFacilities = Facility::all(); // DIREEEEEEEEEEEEEEEEE!
         $responseMessage = array();
 
         if($type === 'add') {

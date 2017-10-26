@@ -47,42 +47,11 @@
 										<h4>Facilities</h4>
 										<div class="row">
 											<div class="col-sm-12">
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
-												<span class="tag-icon">
-													<img src="/icons/adsl.png" class="tips">
-												</span>
+												@foreach($room->facilities as $facility)
+													<span class="tag-icon">
+														<img src="{{ $facility }}" class="tips">
+													</span>
+												@endforeach
 											</div>
 										</div>
 									</div>
@@ -144,7 +113,7 @@
 									<div>
 										<label for="facilities" class="control-label">Facilities</label>
 									</div>
-									@foreach ($facilities as $facility)
+									@foreach ($allFacilities as $facility)
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div class="checkbox checkbox-info">
 												<input id="checkbox{{ $facility->id }}" type="checkbox" name="facilities[]" value="{{ $facility->id }}">

@@ -233,10 +233,66 @@ $('#room_form').submit(function(event){
 		url: baseUrl + '/owner/rooms/' + buttonText.toLowerCase(),
 		data: $(this).serialize(),
 		success: function(data) {
-			console.log(data);
+			createRoom(data.responseMessage);
+			$('#addRoomModal').modal('hide');
 		},
 		error: function(data) {
 			console.error(data);
 		}
 	});
 });
+
+function createRoom(data){
+	var roomElement = $(`
+		<div class="col-md-6 room">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						${data.name}
+						<i class="fa fa-trash pull-right drag-filter" aria-hidden="true"></i>
+						<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true"></i>
+						<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true"></i>
+						<i class="fa fa-eye pull-right drag-view" aria-hidden="true"></i>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-12">
+						<h4>Information</h4>
+						<p>${(data.information.length < 198)? data.information : data.information.substring(0,198)+'...'}</p>
+					</div>
+					<div class="col-md-12">
+						<h4>Price Range (per night)</h4>
+						<p>₱ ${data.price}</p>
+					</div>
+					<div class="col-md-12">
+						<h4>Capacity</h4>
+						<p><i class="fa fa-male"></i> x ${data.capacity}</p>
+					</div>
+					<div class="col-md-12">
+						<h4>Facilities</h4>
+						<div class="row">
+							<div class="col-sm-12">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<h4>Image(s)</h4>
+						<div class="row">
+							<div class="room-image col-md-6 col-sm-12">
+								<img src="/img/hotel.jpg" />
+							</div>
+							<div class="room-image col-md-6 col-sm-12">
+								<img src="/img/hotel2.jpg" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>`);
+
+	if ($('.room').length) {
+		$('.room').last().after(roomElement);
+	} else {
+		$('#drag').append(roomElement);
+	}
+}
