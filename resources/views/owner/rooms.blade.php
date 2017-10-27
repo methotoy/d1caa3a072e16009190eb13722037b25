@@ -24,16 +24,16 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										{{ ucwords($room->name) }}
-										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true"></i>
-										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true"></i>
-										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true"></i>
-										<i class="fa fa-eye pull-right drag-view" aria-hidden="true"></i>
+										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										<i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="{{ $room->id }}"></i>
 									</h3>
 								</div>
 								<div class="panel-body">
 									<div class="col-md-12">
 										<h4>Information</h4>
-										<p>{{ (strlen($room->information) < 201-3) ? $room->information : substr($room->information, 0, 201-3)."..." }}</p>
+										<p class="wrap">{{ (strlen($room->information) < 201-3) ? $room->information : substr($room->information, 0, 201-3)."..." }}</p>
 									</div>
 									<div class="col-md-12">
 										<h4>Price Range (per night)</h4>

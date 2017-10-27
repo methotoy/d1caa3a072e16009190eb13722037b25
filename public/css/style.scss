@@ -254,7 +254,13 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
 
 #rooms{
   .btn-add{margin-bottom: 15px;}
-  #drag{padding: 0;padding-top: 15px;}
+  #drag{
+    padding: 0;
+    padding-top: 15px;
+    .panel{
+      min-height: 607px;
+    }
+  }
   .drag-handle{cursor: move;color: black;}
   .drag-filter{cursor: pointer;color: red;}
   .drag-edit,.drag-view{cursor: pointer;;color: black;}
@@ -517,4 +523,12 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   left: 0px;
   width: 100%;
   height: 5px;
+}
+
+.wrap { 
+  white-space: pre-wrap;      /* CSS3 */   
+  white-space: -moz-pre-wrap; /* Firefox */    
+  white-space: -pre-wrap;     /* Opera <7 */   
+  white-space: -o-pre-wrap;   /* Opera 7 */    
+  word-wrap: break-word;      /* IE */
 }

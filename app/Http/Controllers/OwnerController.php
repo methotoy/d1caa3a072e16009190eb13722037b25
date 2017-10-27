@@ -111,7 +111,6 @@ class OwnerController extends Controller
 
     public function updateRoom( $type )
     {
-        $allFacilities = Facility::all(); // DIREEEEEEEEEEEEEEEEE!
         $responseMessage = array();
 
         if($type === 'add') {
@@ -125,7 +124,31 @@ class OwnerController extends Controller
 
             $data['facilities'] = implode(",",$data['facilities']);
 
-            $responseMessage = $this->user()->company->rooms()->create($data);
+            if($responseData = $this->user()->company->rooms()->create($data)->toArray()){
+                $responseData['facilities'] = Facility::find(explode(",",$responseData['facilities']),['icon_path'])->toJson();
+                $responseMessage['status'] = 'success';
+                $responseMessage['data'] = $responseData;
+                $responseMessage['method'] = 'Adde';
+            } else {
+                $responseMessage['status'] = 'danger';
+                $responseMessage['data'] = array();
+                $responseMessage['method'] = 'Adde';
+            }
+        }
+
+        return response()->json(compact('responseMessage'), 200);
+    }
+
+    public function deleteRoom()
+    {   
+        $responseMessage = array('status' => 'danger', 'method' => 'Delete');
+
+        if(request()->has('id')) {
+            if(Room::find(request()->id)->delete()) {
+                $responseMessage['status'] = 'success';
+                $responseMessage['id'] = request()->id;
+            }
+
         }
 
         return response()->json(compact('responseMessage'), 200);
