@@ -61,6 +61,7 @@ Route::prefix('owner')->group(function () {
 	Route::get('rooms', 'OwnerController@rooms');
 	Route::post('rooms/{type}', 'OwnerController@updateRoom');
 	Route::delete('rooms/delete', 'OwnerController@deleteRoom');
+	Route::post('rooms/get/information', 'OwnerController@infoRoom');
 
 	Route::get('/', function() {
 		return redirect('/owner/account');

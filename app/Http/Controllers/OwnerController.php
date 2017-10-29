@@ -10,8 +10,6 @@ use App\Room as Room;
 
 class OwnerController extends Controller
 {
-    protected $user;
-
 	public function __construct()
     {
         $this->middleware('owner');
@@ -113,27 +111,33 @@ class OwnerController extends Controller
     {
         $responseMessage = array();
 
-        if($type === 'add') {
-            $data = $this->validate(request(), [
-                'name' => 'required',
-                'information' => 'required',
-                'capacity' => 'required|numeric',
-                'price' => 'required|numeric',
-                'facilities' => 'required'
-            ]);
+        $data = $this->validate(request(), [
+            'name' => 'required',
+            'information' => 'required',
+            'capacity' => 'required|numeric',
+            'price' => 'required|numeric',
+            'facilities' => 'required'
+        ]);
 
-            $data['facilities'] = implode(",",$data['facilities']);
+        $data['facilities'] = implode(",",$data['facilities']);
 
-            if($responseData = $this->user()->company->rooms()->create($data)->toArray()){
-                $responseData['facilities'] = Facility::find(explode(",",$responseData['facilities']),['icon_path'])->toJson();
-                $responseMessage['status'] = 'success';
-                $responseMessage['data'] = $responseData;
-                $responseMessage['method'] = 'Adde';
-            } else {
-                $responseMessage['status'] = 'danger';
-                $responseMessage['data'] = array();
-                $responseMessage['method'] = 'Adde';
-            }
+        if(request()->has('id') && $this->user()->company->rooms()->find(request()->id)->update($data)) { 
+           $data['id'] = request()->id;
+           $responseData = $data;
+        } else {
+            $responseData = $this->user()->company->rooms()->create($data)->toArray();
+        }
+
+        if($responseData){
+            $responseData['facilities'] = Facility::find(explode(",",$responseData['facilities']),['icon_path'])->toJson();
+
+            $responseMessage['status'] = 'success';
+            $responseMessage['data'] = $responseData;
+            $responseMessage['method'] = $type == 'add' ? 'Adde' : 'Update';
+        } else {
+            $responseMessage['status'] = 'danger';
+            $responseMessage['data'] = array();
+            $responseMessage['method'] = 'Adde';
         }
 
         return response()->json(compact('responseMessage'), 200);
@@ -149,6 +153,16 @@ class OwnerController extends Controller
                 $responseMessage['id'] = request()->id;
             }
 
+        }
+
+        return response()->json(compact('responseMessage'), 200);
+    }
+
+    public function infoRoom() {
+        $responseMessage = array();
+
+        if(request()->has('id')) {
+            $responseMessage['data'] = Room::find(request()->id);
         }
 
         return response()->json(compact('responseMessage'), 200);

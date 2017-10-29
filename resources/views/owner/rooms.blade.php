@@ -19,11 +19,11 @@
 					@endif
 					<div class="col-md-12" id="drag">
 						@foreach($rooms as $room)
-						<div class="col-md-6 room">
+						<div class="col-md-6 room" id="room-{{ $room->id }}">
 							<div class="panel panel-success">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										{{ ucwords($room->name) }}
+										<span>{{ ucwords((strlen($room->name) < 40) ? $room->name : substr($room->name, 0, 40)."...") }}</span>
 										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="{{ $room->id }}"></i>
@@ -33,7 +33,7 @@
 								<div class="panel-body">
 									<div class="col-md-12">
 										<h4>Information</h4>
-										<p class="wrap">{{ (strlen($room->information) < 201-3) ? $room->information : substr($room->information, 0, 201-3)."..." }}</p>
+										<p class="wrap">{{ (strlen($room->information) < 198) ? $room->information : substr($room->information, 0, 198)."..." }}</p>
 									</div>
 									<div class="col-md-12">
 										<h4>Price Range (per night)</h4>
@@ -88,25 +88,25 @@
 						<div class="col-md-12">
 							<form method="POST" class="form-horizontal" role="form" id="room_form">
 								{{ csrf_field() }}
-
+								<input type="hidden" id="id">
 								<div class="form-group">
 									<label for="name" class="control-label">Name</label>
-									<input type="text" class="form-control" id="name" name="name">
+									<input type="text" class="form-control" id="name" name="name" maxlength="191" required>
 								</div>
 
 								<div class="form-group">
 									<label for="information" class="control-label">Information</label>
-									<textarea class="form-control" id="information" name="information" rows="5"></textarea>
+									<textarea class="form-control" id="information" name="information" rows="5" required></textarea>
 								</div>
 
 								<div class="form-group">
 									<label for="price" class="control-label">Price Range</label>
-									<input type="number" class="form-control" id="price" name="price">
+									<input type="number" class="form-control" id="price" name="price" min="0" required>
 								</div>
 
 								<div class="form-group">
 									<label for="capacity" class="control-label">Capacity</label>
-									<input type="number" class="form-control" id="capacity" name="capacity">
+									<input type="number" class="form-control" id="capacity" name="capacity" min="0" required>
 								</div>
 
 								<div class="form-group">

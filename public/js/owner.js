@@ -23,11 +23,11 @@ function notify(type,title,message,icon = null) {
 
 function createRoom(data){
 	var roomElement = $(`
-		<div class="col-md-6 room">
+		<div class="col-md-6 room" id="room-${data.id}">
 			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						${data.name}
+						${ucwords(data.name)}
 						<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="${data.id}"></i>
 						<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="${data.id}"></i>
 						<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="${data.id}"></i>
@@ -70,7 +70,9 @@ function createRoom(data){
 			</div>
 		</div>`);
 
-	if ($('.room').length) {
+	if(data.hasOwnProperty('id')) {
+		$('#room-'+data.id).replaceWith(roomElement);
+	} else if ($('.room').length) {
 		$('.room').last().after(roomElement);
 	} else {
 		$('#drag').append(roomElement);
@@ -113,16 +115,25 @@ function getCsrfToken(){
 	return false;
 }
 
-$.fn.disable = function() {
+$.fn.extend({
+  check: function() {
     return this.each(function() {
-        if (typeof this.disabled != "undefined") this.disabled = true;
+      this.checked = true;
     });
-}
+  },
+  uncheck: function() {
+    return this.each(function() {
+      this.checked = false;
+    });
+  }
+});
 
-$.fn.enable = function() {
-    return this.each(function() {
-        if (typeof this.disabled != "undefined") this.disabled = false;
-    });
+function ucwords(string) {
+    str = string.toLowerCase();
+    return str.replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g,
+        function($1){
+            return $1.toUpperCase();
+        });
 }
 
 if( $('#account #map').length ) {
@@ -332,6 +343,8 @@ $('#room_form').submit(function(event){
 
 $('.btn-add').click(function(){
 	$('#room_form')[0].reset();
+	$('#room_form').find('input[type="checkbox"]').uncheck();
+	$('#room_form #id').removeAttr('name')
 });
 
 $('#drag').on("click", ".drag-filter", function(){
@@ -358,10 +371,60 @@ $('#drag').on("click", ".drag-filter", function(){
 				notify(
 					'danger',
 					'<strong>Error!</strong>',
-					'There was an error on updating your room information! Please contact us about this problem!',
+					'There was an error on deleting your room information! Please contact us about this problem!',
 					'fa fa-exclamation-circle'
 				);
 			}
 		});
 	}
 });
+
+$('#drag').on("click", ".drag-edit", function(){
+	let id = $(this)[0].dataset.id;
+	$('#room_form')[0].reset();
+	$('#room_form #id').attr('name','id');
+
+	$.ajax({
+		type: "POST",
+		url: baseUrl + '/owner/rooms/get/information',
+		data: { id: id, _token: getCsrfToken() },
+		success: function(data) {
+			let response = data.responseMessage;
+
+			if(response.hasOwnProperty('data') && ! $.isEmptyObject(response.data)) {
+				let data = response.data;
+				response.data.facilities = response.data.facilities.split(",");
+
+				for(let _key in data){
+					if(data[_key] instanceof Array){
+						$("#room_form").find('input[type="checkbox"]').each(function(){
+							console.log($.inArray($(this).val(), data[_key]) > -1);
+							if($.inArray($(this).val(), data[_key]) > -1){
+								$(this).attr('checked', 'checked');
+							} else {
+								$(this).removeAttr('checked');
+							}
+						});
+					} else {
+						$("#room_form").find('input[name="'+_key+'"]').val(data[_key]);
+						$('#room_form').find('textarea[name="'+_key+'"]').val(data[_key]);
+					}
+				}
+
+				$('#room_form').find('button[type="submit"]').html('Update');
+				$("#addRoomModal").modal({
+					backdrop: 'static',
+				    keyboard: false
+				});
+			}
+		},
+		error: function() {
+			notify(
+				'danger',
+				'<strong>Error!</strong>',
+				'There was an error on getting your room information! Please contact us about this problem!',
+				'fa fa-exclamation-circle'
+			);
+		}
+	});
+})

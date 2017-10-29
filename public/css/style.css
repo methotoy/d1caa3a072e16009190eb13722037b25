@@ -9274,3 +9274,6 @@ section .container > h1, section .container > h2, section .container > h3 {
   /* Opera 7 */
   word-wrap: break-word;
   /* IE */ }
+
+.modal {
+  z-index: 10000; }
