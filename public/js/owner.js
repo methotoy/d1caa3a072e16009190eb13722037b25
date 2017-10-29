@@ -513,3 +513,36 @@ $('#image_form').on({
 		$(this.lastElementChild).css('opacity', '1');
 	}
 }, '.saved, .added');
+
+$('#image_form').submit(function(event){
+	event.preventDefault();
+	var formData = new FormData($(this)[0]);
+
+	$.ajax({
+		type: 'POST',
+		url: baseUrl + '/owner/rooms/upload/image',
+		data: formData,
+		processData: false,
+		contentType: false,
+		dataType:'json',
+		async:false,
+		success: function(data) {
+			let response = data.responseMessage;
+			
+			notify(
+				response.status,
+				response.status == 'success'? '<strong>Success!</strong>' : '<strong>Error!</strong>',
+				response.status == 'success'? 'Room Image(s) Successfully '+response.method+'d!' : 'There was an error on saving your room image(s)! Please contact us about this problem!',
+				response.status == 'success'? 'fa fa-thumbs-up' : 'fa fa-exclamation-circle'
+			);
+		},
+		error: function(data) {
+			notify(
+				'danger',
+				'<strong>Error!</strong>',
+				'There was an error on saving the images! Please contact us about this problem!',
+				'fa fa-exclamation-circle'
+			);
+		}
+	});
+});

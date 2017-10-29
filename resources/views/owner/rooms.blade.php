@@ -156,7 +156,7 @@
 								{{ csrf_field() }}
 								<input type="hidden" id="id" name="id">
 								<input type="hidden" name="deleted_images">
-								<input type="file" name="name" id="image-uploader" accept="image/*" multiple="true" style="visibility: hidden;">
+								<input type="file" name="images[]" id="image-uploader" accept="image/*" multiple="true" style="visibility: hidden;">
 								<div class="form-group">
 									<div class="col-md-4 col-sm-12 col-image saved">
 										<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="1"></i>

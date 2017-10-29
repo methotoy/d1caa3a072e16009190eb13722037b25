@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Facility as Facility;
 use App\Company as Company;
 use App\Room as Room;
+use App\Image as Image;
 
 class OwnerController extends Controller
 {
@@ -165,6 +166,29 @@ class OwnerController extends Controller
             $responseMessage['data'] = Room::find(request()->id);
         }
 
+        return response()->json(compact('responseMessage'), 200);
+    }
+
+    public function imageRoom() {
+        $images = array();
+        $responseMessage = array(
+            'status' => 'danger',
+            'method' => 'Save'
+        );
+
+        foreach(request()->images as $image) {
+            $path = $image->store('public/images');
+            $images[] = Room::find(request()->id)->images()->create([
+                'type' => 'Room',
+                'path' => str_replace('public','storagew',$path)
+            ])->toArray();
+        }
+
+        if(!empty($images)) {
+            $responseMessage['status'] = 'success';
+            $responseMessage['data'] = $images;
+        }
+        
         return response()->json(compact('responseMessage'), 200);
     }
 }
