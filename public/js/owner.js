@@ -115,6 +115,32 @@ function getCsrfToken(){
 	return false;
 }
 
+function readURL(input) {
+	if (input.files && input.files.length > 0) {
+		$(input.files).each(function() {
+			let reader = new FileReader();
+			reader.readAsDataURL(this);
+
+			reader.onload = function(e) {
+				let imageElement = $(`
+					<div class="col-md-4 col-sm-12 col-image added">
+						<i class="fa fa-times-circle-o delete-image" aria-hidden="true"></i>
+						<div class="image-preview">
+							<img src="${e.target.result}" />
+						</div>
+					</div>
+				`);
+
+				if($('.image-preview').length) {
+					$('.image-preview').last().parent().after(imageElement);
+				} else {
+					$('.image-plus').parent().before(imageElement);
+				}
+			}
+		});
+	}
+}
+
 $.fn.extend({
   check: function() {
     return this.each(function() {
@@ -344,7 +370,7 @@ $('#room_form').submit(function(event){
 $('.btn-add').click(function(){
 	$('#room_form')[0].reset();
 	$('#room_form').find('input[type="checkbox"]').uncheck();
-	$('#room_form #id').removeAttr('name')
+	$('#room_form #id').removeAttr('name');
 });
 
 $('#drag').on("click", ".drag-filter", function(){
@@ -398,7 +424,6 @@ $('#drag').on("click", ".drag-edit", function(){
 				for(let _key in data){
 					if(data[_key] instanceof Array){
 						$("#room_form").find('input[type="checkbox"]').each(function(){
-							console.log($.inArray($(this).val(), data[_key]) > -1);
 							if($.inArray($(this).val(), data[_key]) > -1){
 								$(this).attr('checked', 'checked');
 							} else {
@@ -428,3 +453,63 @@ $('#drag').on("click", ".drag-edit", function(){
 		}
 	});
 })
+
+$('#drag').on("click", ".drag-image", function(){
+	$('#image_form')[0].reset();
+	let id = $(this)[0].dataset.id;
+	$('#image_form #id').attr('value', id);
+	$('#image_form button[type="submit"]').attr('disabled');
+
+	$("#addImageModal").modal({
+		backdrop: 'static',
+	    keyboard: false
+	});
+});
+
+$('.image-plus').hover(
+	function(){
+		old = $(this).children().css("color");
+		$(this).children().css("color","gray");
+	},
+	function(){
+		$(this).children().css('color',old);
+	}
+);
+
+$('.image-plus').click(function(){
+	$('#image_form input[type="file"]').click();
+});
+
+$('#image-uploader').change(function(){
+	$('#image_form button[type="submit"]').removeAttr('disabled');
+	readURL(this);
+});
+
+$('#image_form').on('click', '.delete-image', function(){
+	if($(this).parent().hasClass('saved')) {
+		let id = $(this)[0].dataset.id;
+		let currentVal = $('#image_form input[name="deleted_images"]').val();
+		$('#image_form input[name="deleted_images"]').val(currentVal? currentVal+","+id : id);
+		$('#image_form button[type="submit"]').removeAttr('disabled');
+	}
+
+	$(this).parent().remove();
+
+	if($('.col-image').hasClass('added') && $('.col-image').hasClass('saved')) {
+		$('#image_form button[type="submit"]').removeAttr('disabled');
+	} else if(!$('.col-image').hasClass('added') && $('.col-image').hasClass('saved') &&
+		!$('#image_form input[name="deleted_images"]').val()) {
+		$('#image_form button[type="submit"]').attr('disabled', 'disabled');
+	}
+});
+
+$('#image_form').on({
+	mouseenter: function(){
+		$(this.firstElementChild).css('visibility','visible');
+	},
+
+	mouseleave: function(){
+		$(this.firstElementChild).css('visibility','hidden');
+		$(this.lastElementChild).css('opacity', '1');
+	}
+}, '.saved, .added');

@@ -11,6 +11,10 @@ class Room extends Model
     protected $fillable = ['name', 'information', 'capacity', 'price', 'facilities'];
 
     public function company() {
-    	$this->belongsTo(Company::class);
+    	return $this->belongsTo(Company::class);
+    }
+
+    public function images(){
+    	return $this->hasMany(Image::class, 'type_id')->imagesOf('Room');
     }
 }

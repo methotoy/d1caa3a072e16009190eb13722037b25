@@ -263,7 +263,7 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   }
   .drag-handle{cursor: move;color: black;}
   .drag-filter{cursor: pointer;color: red;}
-  .drag-edit,.drag-view{cursor: pointer;;color: black;}
+  .drag-edit,.drag-view,.drag-image{cursor: pointer;;color: black;}
   .tag-icon{
     display: inline-block;
     margin: 2px 2px 2px 0;
@@ -282,9 +282,37 @@ section .container > h1,section  .container  > h2,section .container  > h3{margi
   }
 }
 
-#addRoomModal{
+#addRoomModal,#addImageModal{
   .row{margin: 0px 15px 0 15px;}
   textarea{resize: none;}
+  .image-preview,.image-plus{
+    display: flex;
+    justify-content: center;
+    height:170px; /* or other desired height */
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 0 5px 5px 0;
+    box-shadow: 0 0 3px #b4b4b4;
+    img{flex:none;height: 100%;width: auto;}
+  }
+  .image-plus{
+    cursor: pointer;
+    i{font-size: 170px;}
+    background: #B4B4B4;
+  }
+  .col-image{
+    padding:0;
+    position:relative;
+    .delete-image{
+      visibility: hidden;
+      position: absolute;
+      right: 8px;
+      top: 1px;
+      font-size: 30px;
+      color: red;
+      cursor: pointer;
+    }
+  }
 }
 
 .subscribe-email {

@@ -8846,7 +8846,7 @@ section .container > h1, section .container > h2, section .container > h3 {
   cursor: pointer;
   color: red; }
 
-#rooms .drag-edit, #rooms .drag-view {
+#rooms .drag-edit, #rooms .drag-view, #rooms .drag-image {
   cursor: pointer;
   color: black; }
 
@@ -8872,11 +8872,43 @@ section .container > h1, section .container > h2, section .container > h3 {
     width: 100%;
     height: auto; }
 
-#addRoomModal .row {
+#addRoomModal .row, #addImageModal .row {
   margin: 0px 15px 0 15px; }
 
-#addRoomModal textarea {
+#addRoomModal textarea, #addImageModal textarea {
   resize: none; }
+
+#addRoomModal .image-preview, #addRoomModal .image-plus, #addImageModal .image-preview, #addImageModal .image-plus {
+  display: flex;
+  justify-content: center;
+  height: 170px;
+  /* or other desired height */
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 0 5px 5px 0;
+  box-shadow: 0 0 3px #b4b4b4; }
+  #addRoomModal .image-preview img, #addRoomModal .image-plus img, #addImageModal .image-preview img, #addImageModal .image-plus img {
+    flex: none;
+    height: 100%;
+    width: auto; }
+
+#addRoomModal .image-plus, #addImageModal .image-plus {
+  cursor: pointer;
+  background: #B4B4B4; }
+  #addRoomModal .image-plus i, #addImageModal .image-plus i {
+    font-size: 170px; }
+
+#addRoomModal .col-image, #addImageModal .col-image {
+  padding: 0;
+  position: relative; }
+  #addRoomModal .col-image .delete-image, #addImageModal .col-image .delete-image {
+    visibility: hidden;
+    position: absolute;
+    right: 8px;
+    top: 1px;
+    font-size: 30px;
+    color: red;
+    cursor: pointer; }
 
 .subscribe-email {
   background-color: #22c1f8;

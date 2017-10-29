@@ -21,4 +21,8 @@ class Company extends Model
     {
     	return $this->hasMany(Room::class);
     }
+
+    public function images(){
+    	return $this->hasMany(Image::class, 'type_id')->imagesOf('Company');
+    }
 }

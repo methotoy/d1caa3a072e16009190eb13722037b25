@@ -27,6 +27,7 @@
 										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										<i class="fa fa-file-image-o pull-right drag-image" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="{{ $room->id }}"></i>
 									</h3>
 								</div>
@@ -126,6 +127,7 @@
 									@endforeach
 								</div>
 
+								<
 
 								<div class="form-group">
 									<button type="submit" class="btn btn-info pull-right">Add</button>
@@ -138,4 +140,54 @@
 		</div>
 	</div>
 	{{-- End Add Room Modal --}}
+
+	{{-- Add Image Modal --}}
+	<div class="modal fade" id="addImageModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Upload Image(s)</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<form method="POST" class="form-horizontal" role="form" id="image_form">
+								{{ csrf_field() }}
+								<input type="hidden" id="id" name="id">
+								<input type="hidden" name="deleted_images">
+								<input type="file" name="name" id="image-uploader" accept="image/*" multiple="true" style="visibility: hidden;">
+								<div class="form-group">
+									<div class="col-md-4 col-sm-12 col-image saved">
+										<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="1"></i>
+										<div class="image-preview">
+											<img src="/img/2.jpg" />
+										</div>
+									</div>
+
+									<div class="col-md-4 col-sm-12 col-image saved">
+										<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="3"></i>
+										<div class="image-preview">
+											<img src="/img/2.jpg" />
+										</div>
+									</div>
+
+
+									<div class="col-md-4 col-sm-12 col-image default">
+										<div class="image-plus">
+											<i class="fa fa-plus-circle"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info pull-right" disabled>Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- End Add Image Modal --}}
 @endsection
