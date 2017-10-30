@@ -457,12 +457,60 @@ $('#drag').on("click", ".drag-edit", function(){
 $('#drag').on("click", ".drag-image", function(){
 	$('#image_form')[0].reset();
 	let id = $(this)[0].dataset.id;
-	$('#image_form #id').attr('value', id);
-	$('#image_form button[type="submit"]').attr('disabled');
+	$('#image_form').find('.saved, .added').remove();
 
-	$("#addImageModal").modal({
-		backdrop: 'static',
-	    keyboard: false
+	$.ajax({
+		type: 'POST',
+		url: baseUrl + '/owner/rooms/images/information',
+		data: { id: id, _token: getCsrfToken() },
+		success: function(data){
+			let response = data.responseMessage;
+			
+			if(response.data instanceof Array && response.data.length > 0) {
+				$.each(response.data, function(){
+
+					let imageElement = $(`
+						<div class="col-md-4 col-sm-12 col-image saved">
+							<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="${this.id}"></i>
+							<div class="image-preview">
+								<img src="/${this.path}" />
+							</div>
+						</div>
+					`);
+
+					if($('.image-preview').length) {
+						$('.image-preview').last().parent().after(imageElement);
+					} else {
+						$('.image-plus').parent().before(imageElement);
+					}
+				});
+			}
+
+			if(response.status == 'success') {
+				$('#image_form #id').attr('value', id);
+				$('#image_form button[type="submit"]').attr('disabled');
+
+				$("#addImageModal").modal({
+					backdrop: 'static',
+				    keyboard: false
+				});
+			} else {
+				notify(
+					'danger',
+					'<strong>Error!</strong>',
+					'There was an error on getting the images! Please contact us about this problem!',
+					'fa fa-exclamation-circle'
+				);
+			}
+		},
+		error: function(data){
+			notify(
+				'danger',
+				'<strong>Error!</strong>',
+				'There was an error on getting the images! Please contact us about this problem!',
+				'fa fa-exclamation-circle'
+			);
+		}
 	});
 });
 
@@ -528,6 +576,27 @@ $('#image_form').submit(function(event){
 		async:false,
 		success: function(data) {
 			let response = data.responseMessage;
+			let imageElement = '';
+			let id = $('#image_form #id').val();
+
+			if(response.data instanceof Array && response.data.length > 0) {
+				$('#room-'+id).find('.room-images').children().remove();
+
+				$.each(response.data, function(){
+					console.log(this.path);
+					imageElement += `
+						<div class="room-image col-md-6 col-sm-12">
+							<img src="/${this.path}" />
+						</div>
+					`;
+				});
+
+				$('#room-'+id).find('.room-images').append($(imageElement));
+			}
+
+			$('#addImageModal').modal('toggle');
+			$('#image_form')[0].reset();
+			$('#image_form input[name="deleted_images"]').removeAttr('value');
 			
 			notify(
 				response.status,

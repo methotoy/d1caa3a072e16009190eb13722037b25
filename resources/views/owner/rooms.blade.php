@@ -58,13 +58,12 @@
 									</div>
 									<div class="col-md-12">
 										<h4>Image(s)</h4>
-										<div class="row">
-											<div class="room-image col-md-6 col-sm-12">
-												<img src="/img/hotel.jpg" />
-											</div>
-											<div class="room-image col-md-6 col-sm-12">
-												<img src="/img/hotel2.jpg" />
-											</div>
+										<div class="row room-images">
+											@foreach($room->images as $image)
+												<div class="room-image col-md-6 col-sm-12">
+													<img src="/{{ $image->path }}" />
+												</div>
+											@endforeach
 										</div>
 									</div>
 								</div>
@@ -158,21 +157,6 @@
 								<input type="hidden" name="deleted_images">
 								<input type="file" name="images[]" id="image-uploader" accept="image/*" multiple="true" style="visibility: hidden;">
 								<div class="form-group">
-									<div class="col-md-4 col-sm-12 col-image saved">
-										<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="1"></i>
-										<div class="image-preview">
-											<img src="/img/2.jpg" />
-										</div>
-									</div>
-
-									<div class="col-md-4 col-sm-12 col-image saved">
-										<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="3"></i>
-										<div class="image-preview">
-											<img src="/img/2.jpg" />
-										</div>
-									</div>
-
-
 									<div class="col-md-4 col-sm-12 col-image default">
 										<div class="image-plus">
 											<i class="fa fa-plus-circle"></i>

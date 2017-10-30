@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Facility as Facility;
 use App\Company as Company;
@@ -170,25 +171,55 @@ class OwnerController extends Controller
     }
 
     public function imageRoom() {
-        $images = array();
         $responseMessage = array(
             'status' => 'danger',
             'method' => 'Save'
         );
 
-        foreach(request()->images as $image) {
-            $path = $image->store('public/images');
-            $images[] = Room::find(request()->id)->images()->create([
-                'type' => 'Room',
-                'path' => str_replace('public','storagew',$path)
-            ])->toArray();
+        if(request()->hasFile('images') && request()->images) {
+            foreach(request()->images as $image) {
+                $path = $image->store('public/images');
+                Room::find(request()->id)->images()->create([
+                    'type' => 'Room',
+                    'path' => str_replace('public','storage',$path)
+                ]);
+            }
+
+            $responseMessage['status'] = 'success';
         }
 
-        if(!empty($images)) {
-            $responseMessage['status'] = 'success';
-            $responseMessage['data'] = $images;
+        if(request()->has('deleted_images') && request()->deleted_images) {
+            $_images = Image::find(explode(",", request()->deleted_images));
+            
+            foreach ($_images as $image) {
+                Storage::delete(str_replace("storage", "public", $image->path));
+            }
+
+            if(Image::destroy(explode(",", request()->deleted_images))) {
+                $responseMessage['status'] = 'success';
+            } else  {
+                $responseMessage['status'] = 'danger';
+            }
         }
+
+        $responseMessage['data'] = Room::find(request()->id)->images->toArray();
         
         return response()->json(compact('responseMessage'), 200);
+    }
+
+    public function infoImage() {
+        $responseMessage = array(
+            'status'=> 'danger',
+            'data'  => [],
+            'method'=> 'Save'
+        );
+
+        if(request()->has('id')){
+            $responseMessage['status'] = 'success';
+            $responseMessage['data'] = $this->user()->company->rooms->find(request()->id)->images->toArray();
+        }
+
+
+        return response()->json(compact('responseMessage'),200);
     }
 }
