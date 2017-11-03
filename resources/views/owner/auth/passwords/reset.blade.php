@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
-@section('title','Home')
+@section('title','Owner - Password Reset')
 
 @section('content')
 <section class="regular background">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Reset Password</div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Owner Reset Password</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+                        <form class="form-horizontal" method="POST" action="{{ url('/owner/password/reset') }}">
                             {{ csrf_field() }}
 
                             <input type="hidden" name="token" value="{{ $token }}">

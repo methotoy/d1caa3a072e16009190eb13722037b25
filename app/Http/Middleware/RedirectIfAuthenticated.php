@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
             }
 
             if ($guard == 'owner') {
-                $to = '/owner/home';
+                $to = '/owner/account';
             }
 
             return redirect($to);

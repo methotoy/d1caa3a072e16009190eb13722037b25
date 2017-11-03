@@ -1,17 +1,23 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Normal Routes
 
-// Auth::routes();
+Route::get('/', function () {
+	return redirect('/home');
+});
+
+
+Route::prefix('hotels')->group(function (){
+
+	Route::get('/', 'CompanyController@index');
+	Route::get('{name}', 'CompanyController@details');
+
+});
+
+
+
+
+
 
 // Authentication Routes...
 Route::get('signin', 'NormalUserAuth\SigninController@showSigninForm')->name('signin');
@@ -19,8 +25,8 @@ Route::post('signin', 'NormalUserAuth\SigninController@signin');
 Route::post('signout', 'NormalUserAuth\SigninController@signout')->name('signout');
 
 // Registration Routes...
-Route::get('register', 'NormalUserAuth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'NormalUserAuth\RegisterController@register');
+Route::get('signup', 'NormalUserAuth\SignupController@showSignupForm')->name('signup');
+Route::post('signup', 'NormalUserAuth\SignupController@register');
 
 // Password Reset Routes...
 Route::get('password/reset', 'NormalUserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -28,10 +34,10 @@ Route::post('password/email', 'NormalUserAuth\ForgotPasswordController@sendReset
 Route::get('password/reset/{token}', 'NormalUserAuth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'NormalUserAuth\ResetPasswordController@reset');
 
+Route::get('/home', 'HomeController@index');
+
+
 // Owner Routes
-Route::get('/owner', function() {
-	return redirect('/owner/home');
-});
 Route::prefix('owner')->group(function () {
 
 	// Authentication Routes...
@@ -40,8 +46,8 @@ Route::prefix('owner')->group(function () {
 	Route::post('signout', 'OwnerUserAuth\SigninController@signout');
 
 	// Registration Routes...
-	Route::get('register', 'OwnerUserAuth\RegisterController@showRegistrationForm');
-	Route::post('register', 'OwnerUserAuth\RegisterController@register');
+	Route::get('signup', 'OwnerUserAuth\SignupController@showSignupForm');
+	Route::post('signup', 'OwnerUserAuth\SignupController@signup');
 
 	// Password Reset Routes...
 	Route::get('password/reset', 'OwnerUserAuth\ForgotPasswordController@showLinkRequestForm');
@@ -49,17 +55,35 @@ Route::prefix('owner')->group(function () {
 	Route::get('password/reset/{token}', 'OwnerUserAuth\ResetPasswordController@showResetForm');
 	Route::post('password/reset', 'OwnerUserAuth\ResetPasswordController@reset');
 
-	Route::get('/home', 'OwnerController@index');
+	Route::get('account', 'OwnerController@index');
+	Route::post('account/{type}', 'OwnerController@updateAccount');
+
+	Route::get('rooms', 'OwnerController@rooms');
+	Route::post('rooms/{type}', 'OwnerController@updateRoom');
+	Route::delete('rooms/delete', 'OwnerController@deleteRoom');
+	Route::post('rooms/get/information', 'OwnerController@infoRoom');
+	Route::post('rooms/upload/image', 'OwnerController@imageRoom');
+	Route::post('rooms/images/information', 'OwnerController@infoImage');
+
+	Route::get('/', function() {
+		return redirect('/owner/account');
+	});
 
 });
 
-// Admin Authentication Routes...
-Route::get('admin/signin', 'Auth\AdminSigninController@showSigninForm');
-Route::post('admin/signout', 'Auth\AdminSigninController@signout');
-Route::post('admin/user/signin', 'Auth\AdminSigninController@signin');
-Route::get('admin/home', 'AdminController@index');
 
-Route::get('/home', 'HomeController@index');
-Route::get('/', function () {
-	return redirect('/home');
+// Admin Routes
+Route::get('/admin', function() {
+	return redirect('/admin/home');
+});
+
+Route::prefix('admin')->group(function () {
+
+	// Admin Authentication Routes...
+	Route::get('signin', 'AdminUserAuth\SigninController@showSigninForm');
+	Route::post('signin', 'AdminUserAuth\SigninController@signin');
+	Route::post('signout', 'AdminUserAuth\SigninController@signout');
+	Route::post('user/signin', 'AdminUserAuth\SigninController@signin');
+	Route::get('home', 'AdminController@index');
+
 });

@@ -13,5 +13,4 @@ if( $('#signOutButton').length ) {
 	$('#signOutButton').on('click',function(e){
 		$('#signOutForm').submit();
 	});
-
 }

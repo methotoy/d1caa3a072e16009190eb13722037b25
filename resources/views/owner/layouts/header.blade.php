@@ -5,10 +5,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero_mp">
                         <div class="address">
-                            @if(Auth::guard('owner')->check())
-                                <i class="fa fa-envelope floatleft"></i>
-                                <p>{{ Auth::guard('owner')->user()->email }}</p>
-                            @endif
+                          <i class="fa fa-envelope floatleft"></i>
+                          <p>{{ Auth::guard('owner')->user()->email }}</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -17,15 +15,12 @@
                             <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-google-plus"></i></a>
                             <a href=""><i class="fa fa-youtube"></i></a>
-                            @if(Auth::guard('owner')->check())
-                                <a href="#" id="signOutButton" class="log">Sign out</a>
-
-                                <form method="POST" id="signOutForm" action="/owner/signout" hidden>
-                                    {{ csrf_field() }}
-                                </form>
-                            @else
-                                <a href="/owner/signin" class="log">Sign in</a>
-                            @endif
+                            <a href="/owner/account" class="log">Account</a>
+                            <a href="/owner/rooms" class="log">Rooms</a>
+                            <a href="#" id="signOutButton" class="log">Sign out</a>
+                            <form method="POST" id="signOutForm" action="{{ url('/owner/signout') }}" hidden>
+                                {{ csrf_field() }}
+                            </form>
                         </div>
                     </div>
                     <!--End of col-md-4-->
@@ -53,9 +48,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right main_menu">
-                            <li class="active"><a href="#header">Home <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
                             <li class=""><a href="#welcome">Explore</a></li>
                             <li class=""><a href="#portfolio">Promos</a></li>
+                            <li class=""><a href="/hotels">Hotels</a></li>
                             <li class=""><a href="#counter">News & Articles</a></li>
                         </ul>
                     </div>

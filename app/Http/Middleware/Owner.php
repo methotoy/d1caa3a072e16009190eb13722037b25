@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Owner
 {
@@ -13,12 +14,12 @@ class Owner
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = 'owner')
     {
-        if ($request->user->role->type === 'Owner') {
+        if (Auth::guard($guard)->check()) {
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/owner/signin');
     }
 }
