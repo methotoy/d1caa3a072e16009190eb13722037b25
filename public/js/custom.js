@@ -14,3 +14,17 @@ if( $('#signOutButton').length ) {
 		$('#signOutForm').submit();
 	});
 }
+
+if( $('#hotel-details #map-details').length ) {
+
+	$('#hotel-details #map-details').locationpicker({
+		location: {
+			latitude: $('#hotel-details #map_lat').val(),
+			longitude: $('#hotel-details #map_lng').val()
+		},
+		radius: 1,
+		enableAutocomplete: true,
+		enableAutocompleteBlur: true,
+		markerDraggable: false
+	});
+}

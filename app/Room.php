@@ -17,4 +17,19 @@ class Room extends Model
     public function images(){
     	return $this->hasMany(Image::class, 'type_id')->imagesOf('Room');
     }
+
+    public function getFacilitiesAttribute($value){
+        $_arrValue = $value? explode(",", $value) : [];
+        $facilities = Facility::all()->keyBy('id');;
+        $_tempFacilityPath = array();
+
+        foreach($_arrValue as $value) {
+            $_temp = $facilities->get($value);
+            $_tempFacilityPath[] = $_temp->icon_path;
+        }
+
+
+        return $_tempFacilityPath;
+        
+    }
 }

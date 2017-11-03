@@ -55,8 +55,10 @@
 								<i class="fa fa-envelope"></i>
 								{{ $company->email_address }}
 							</p>
+							<input type="hidden" id="map_lat" value="{{ $company->map_lat }}">
+							<input type="hidden" id="map_lng" value="{{ $company->map_lng }}">
 						</div>
-						<div class="map-boxed text-center" id="map">
+						<div class="map-boxed text-center" id="map-details">
 							MAP HERE!
 						</div>
 					</div>
@@ -75,71 +77,22 @@
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-5">
 							<h4>{{ $room->name }}</h4>
-							Sample Details Sample Details Sample Details Sample Details Sample Details Sample Detai...
+							{{ (strlen($room->information) < 87) ? $room->information : substr($room->information, 0, 87)."..." }}
 								<div class="tag-container">
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
-									<span class="tag-icon">
-										<img src="/icons/adsl.png" class="tips">
-									</span>
+									@foreach($room->facilities as $facility)
+										<span class="tag-icon">
+											<img src="{{ $facility }}" class="tips">
+										</span>
+									@endforeach
 								</div>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 text-center">
 							<div class="room-rate">
-								<h5>₱ 5,000</h5>
-								<small class="text-warning">₱ 5,001</small>
+								<h5>₱ {{ $room->price }}</h5>
+								{{-- <small class="text-warning">₱ 5,001</small> --}}
 								<p class="text-muted">Price / 1 night(s)</p>
 								<br>
-								<p>Capacity: <i class="fa fa-male"></i> x1</p>
+								<p>Capacity: <i class="fa fa-male"></i> x{{ $room->capacity }}</p>
 								<button class="btn btn-success btn-lg btn-block"><i class="fa fa-hand-o-right"></i> Book</button>
 								<button class="btn btn-info btn-lg btn-block"><i class="fa fa-plus-circle"></i> Read More</button>
 							</div>
