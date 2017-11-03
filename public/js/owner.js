@@ -22,6 +22,9 @@ function notify(type,title,message,icon = null) {
 }
 
 function createRoom(data){
+	// <i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="${data.id}"></i>
+	// <i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="${data.id}"></i>
+
 	var roomElement = $(`
 		<div class="col-md-6 room" id="room-${data.id}">
 			<div class="panel panel-success">
@@ -30,8 +33,6 @@ function createRoom(data){
 						${ucwords(data.name)}
 						<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="${data.id}"></i>
 						<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="${data.id}"></i>
-						<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="${data.id}"></i>
-						<i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="${data.id}"></i>
 					</h3>
 				</div>
 				<div class="panel-body">
@@ -458,6 +459,7 @@ $('#drag').on("click", ".drag-image", function(){
 	$('#image_form')[0].reset();
 	let id = $(this)[0].dataset.id;
 	$('#image_form').find('.saved, .added').remove();
+	$('#image_form button[type="submit"]').attr("disabled","disabled");
 
 	$.ajax({
 		type: 'POST',
@@ -473,7 +475,7 @@ $('#drag').on("click", ".drag-image", function(){
 						<div class="col-md-4 col-sm-12 col-image saved">
 							<i class="fa fa-times-circle-o delete-image" aria-hidden="true" data-id="${this.id}"></i>
 							<div class="image-preview">
-								<img src="/${this.path}" />
+								<img src="/${this.path+`/medium.`+this.file_extension}" />
 							</div>
 						</div>
 					`);
@@ -586,7 +588,7 @@ $('#image_form').submit(function(event){
 					console.log(this.path);
 					imageElement += `
 						<div class="room-image col-md-6 col-sm-12">
-							<img src="/${this.path}" />
+							<img src="/${this.path +'/thumb.'+ this.file_extension}" />
 						</div>
 					`;
 				});

@@ -178,10 +178,35 @@ class OwnerController extends Controller
 
         if(request()->hasFile('images') && request()->images) {
             foreach(request()->images as $image) {
-                $path = $image->store('public/images');
+                $path = 'img/rooms/'.request()->id.'/'.md5($image->getClientOriginalName()).time();
+                $_path = $image->storeAs($path, 'large.'.$image->getClientOriginalExtension());
+                
+                // creating medium size for the image
+                $mediumImageBackground = \ImageProvider::canvas(500,500);
+                $mediumImage = \ImageProvider::make($image)->resize(500,500, function($c){
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+
+                $mediumImageBackground->insert($mediumImage, 'center');
+
+                $mediumImageBackground->save($path.'/medium.'.$image->getClientOriginalExtension());
+
+                // creating thumbnail size for the image
+                $thumbImagebackground = \ImageProvider::canvas(100,100);
+                $thumbImage = \ImageProvider::make($image)->resize(100,100, function($c){
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+
+                $thumbImagebackground->insert($thumbImage, 'center');
+
+                $thumbImagebackground->save($path.'/thumb.'.$image->getClientOriginalExtension());
+
                 Room::find(request()->id)->images()->create([
                     'type' => 'Room',
-                    'path' => str_replace('public','storage',$path)
+                    'path' => $path,
+                    'file_extension' => $image->getClientOriginalExtension()
                 ]);
             }
 
@@ -192,7 +217,7 @@ class OwnerController extends Controller
             $_images = Image::find(explode(",", request()->deleted_images));
             
             foreach ($_images as $image) {
-                Storage::delete(str_replace("storage", "public", $image->path));
+                Storage::delete($image->path);
             }
 
             if(Image::destroy(explode(",", request()->deleted_images))) {

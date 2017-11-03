@@ -8,7 +8,7 @@ class Image extends Model
 {
     protected $table = 'images';
 
-    protected $fillable = ['type', 'name', 'path'];
+    protected $fillable = ['type', 'path', 'file_extension'];
 
     public function scopeImagesOf($query,$type) {
     	return $query->where('type', $type);

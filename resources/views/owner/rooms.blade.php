@@ -25,10 +25,10 @@
 									<h3 class="panel-title">
 										<span>{{ ucwords((strlen($room->name) < 40) ? $room->name : substr($room->name, 0, 40)."...") }}</span>
 										<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="{{ $room->id }}"></i>
-										<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										{{-- <i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="{{ $room->id }}"></i> --}}
 										<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="{{ $room->id }}"></i>
 										<i class="fa fa-file-image-o pull-right drag-image" aria-hidden="true" data-id="{{ $room->id }}"></i>
-										<i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="{{ $room->id }}"></i>
+										{{-- <i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="{{ $room->id }}"></i> --}}
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -60,8 +60,8 @@
 										<h4>Image(s)</h4>
 										<div class="row room-images">
 											@foreach($room->images as $image)
-												<div class="room-image col-md-6 col-sm-12">
-													<img src="/{{ $image->path }}" />
+												<div class="room-image col-md-3 col-sm-3">
+													<img src="/{{ $image->path }}/thumb.{{ $image->file_extension }}" />
 												</div>
 											@endforeach
 										</div>

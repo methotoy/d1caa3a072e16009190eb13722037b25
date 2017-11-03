@@ -17,8 +17,8 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->string('type', 191);
             $table->integer('type_id')->unsigned();
-            $table->string('name', 191);
             $table->string('path', 191);
+            $table->string('file_extension', 45);
             $table->timestamps();
         });
     }
