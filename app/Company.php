@@ -12,6 +12,8 @@ class Company extends Model
             'user_id', 'name', 'address', 'zip_code', 'map_lat', 'map_lng', 'phone_number', 'fax_number', 'email_address', 'total_rooms', 'price_range', 'information', 'description', 'facilities'
     ];
 
+    protected $hidden = ['user_id'];
+
     public function user()
     {
     	return $this->belongsTo(User::class);
@@ -24,5 +26,20 @@ class Company extends Model
 
     public function images(){
     	return $this->hasMany(Image::class, 'type_id')->imagesOf('Company');
+    }
+
+    public function getFacilitiesAttribute($value){
+        $_arrValue = $value? explode(",", $value) : [];
+        $facilities = Facility::all()->keyBy('id');;
+        $_tempFacilityPath = array();
+
+        foreach($_arrValue as $value) {
+            $_temp = $facilities->get($value);
+            $_tempFacilityPath[] = $_temp->icon_path;
+        }
+
+
+        return $_tempFacilityPath;
+        
     }
 }

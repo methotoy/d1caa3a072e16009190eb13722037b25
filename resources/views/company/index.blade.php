@@ -18,124 +18,34 @@
 			    </form>
 			  </div>
 
-			  <div class="container hotel-container">
-					<div class="row">
-						<div class="col-md-4">
-							<img src="/img/hotel.jpg" />
-						</div>
-						<div class="col-md-8">
-							<div class="col-md-8">
-								<h3 class="hotel-name">Kiwiana Panorama</h3>
-								<h4>Sample Information</h4>
-								<h5>Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sample Details Sam...</h4>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/adsl.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/baby-cot.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/bath.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/free-parking.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/hairdryer.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/lounge.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/mini-bar.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/non-smoking.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/safe.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/shower.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/adsl.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/baby-cot.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/bath.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/free-parking.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/hairdryer.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/lounge.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/mini-bar.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/non-smoking.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/safe.png">
-									</div>
-								</div>
-								<div class="col-md-1 tag">
-									<div class="tag-container">
-										<img src="/icons/shower.png">
-									</div>
-								</div>
+			  @foreach($companies as $company)
+				  <div class="container hotel-container">
+						<div class="row">
+							<div class="col-md-4">
+								<img src="/img/hotel.jpg" />
 							</div>
-							<div class="col-md-4 aligncenter">
-								<h5 class="hotel-rate">From <span>₱ 5,000</span> / night</h5>
-								<a href="/hotels/hotel-name" class="btn btn-info btn-block btn-a"><i class="fa fa-plus-circle"></i>  Read More</a>
+							<div class="col-md-8">
+								<div class="col-md-8">
+									<h3 class="hotel-name">{{ ucwords($company->name) }}</h3>
+									<h4>{{ ucwords($company->information) }}</h4>
+									<h5>{{ (strlen($company->description) < 198) ? $company->description : substr($company->description, 0, 198)."..." }}</h4>
+									
+									@foreach($company->facilities as $facility)
+										<div class="col-md-1 tag">
+											<div class="tag-container">
+												<img src="{{ $facility }}">
+											</div>
+										</div>
+									@endforeach
+								</div>
+								<div class="col-md-4 aligncenter">
+									<h5 class="hotel-rate">From <span>₱ {{ $company->price_range }}</span> / night</h5>
+									<a href="/hotels/information/{{ $company->id }}" class="btn btn-info btn-block btn-a"><i class="fa fa-plus-circle"></i>  Read More</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				@endforeach
       </div>
   </section>
 @endsection

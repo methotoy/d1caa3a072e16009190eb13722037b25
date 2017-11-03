@@ -176,6 +176,10 @@ class OwnerController extends Controller
             'method' => 'Save'
         );
 
+        $this->validate(request(), [
+            'images.*'    =>  'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+
         if(request()->hasFile('images') && request()->images) {
             foreach(request()->images as $image) {
                 $path = 'img/rooms/'.request()->id.'/'.md5($image->getClientOriginalName()).time();

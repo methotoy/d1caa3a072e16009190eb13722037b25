@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::prefix('hotels')->group(function (){
 
 	Route::get('/', 'CompanyController@index');
-	Route::get('{name}', 'CompanyController@details');
+	Route::get('/information/{id}', 'CompanyController@details');
 
 });
 
