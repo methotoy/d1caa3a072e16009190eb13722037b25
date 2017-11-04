@@ -59,13 +59,7 @@ function createRoom(data,type){
 					</div>
 					<div class="col-md-12">
 						<h4>Image(s)</h4>
-						<div class="row">
-							<div class="room-image col-md-6 col-sm-12">
-								<img src="/img/hotel.jpg" />
-							</div>
-							<div class="room-image col-md-6 col-sm-12">
-								<img src="/img/hotel2.jpg" />
-							</div>
+						<div class="row room-images">
 						</div>
 					</div>
 				</div>
@@ -73,10 +67,9 @@ function createRoom(data,type){
 		</div>`);
 
 	if(data.hasOwnProperty('id') && type === 'Update') {
-		console.log('Update');
 		$('#room-'+data.id).replaceWith(roomElement);
+		createImage(data.image,data.id);
 	} else if ($('.room').length) {
-		console.log('Add');
 		$('.room').last().after(roomElement);
 	} else {
 		$('#drag').append(roomElement);
@@ -109,6 +102,24 @@ function createIcon(data){
 	}
 
 	return returnString;
+}
+
+function createImage(data,id) {
+	let imageElement = '';
+
+	if(data instanceof Array && data.length > 0) {
+		$('#room-'+id).find('.room-images').children().remove();
+
+		$.each(data, function(){
+			imageElement += `
+				<div class="room-image col-md-3 col-sm-3">
+					<img src="/${this.path +'/thumb.'+ this.file_extension}" />
+				</div>
+			`;
+		});
+
+		$('#room-'+id).find('.room-images').append($(imageElement));
+	}
 }
 
 function getCsrfToken(){
@@ -589,19 +600,7 @@ $('#image_form').submit(function(event){
 			let imageElement = '';
 			let id = $('#image_form #id').val();
 
-			if(response.data instanceof Array && response.data.length > 0) {
-				$('#room-'+id).find('.room-images').children().remove();
-
-				$.each(response.data, function(){
-					imageElement += `
-						<div class="room-image col-md-6 col-sm-12">
-							<img src="/${this.path +'/thumb.'+ this.file_extension}" />
-						</div>
-					`;
-				});
-
-				$('#room-'+id).find('.room-images').append($(imageElement));
-			}
+			createImage(response.data, id);
 
 			$('#addImageModal').modal('toggle');
 			$('#image_form')[0].reset();

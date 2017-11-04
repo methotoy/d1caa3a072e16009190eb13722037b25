@@ -106,6 +106,7 @@ class OwnerController extends Controller
         if(request()->has('id') && $this->user()->company->rooms()->find(request()->id)->update($data)) { 
             $data['id'] = request()->id;
             $data['facilities'] = Facility::find(explode(",",$data['facilities']),['icon_path'])->toJson();
+            $data['image'] = Room::find(request()->id)->images->toArray();
             $responseData = $data;
         } else {
             $responseData = $this->user()->company->rooms()->create($data)->toArray();
