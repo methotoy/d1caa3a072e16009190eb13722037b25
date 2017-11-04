@@ -21,8 +21,8 @@ function notify(type,title,message,icon = null) {
 	});
 }
 
-function createRoom(data){
-	// <i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="${data.id}"></i>
+function createRoom(data,type){
+	// <i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="${data.id}"></i>
 	// <i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="${data.id}"></i>
 
 	var roomElement = $(`
@@ -32,7 +32,8 @@ function createRoom(data){
 					<h3 class="panel-title">
 						${ucwords(data.name)}
 						<i class="fa fa-trash pull-right drag-filter" aria-hidden="true" data-id="${data.id}"></i>
-						<i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="${data.id}"></i>
+						<i class="fa fa-pencil pull-right drag-edit" aria-hidden="true" data-id="${data.id}"></i>
+						<i class="fa fa-file-image-o pull-right drag-image" aria-hidden="true" data-id="${data.id}"></i>
 					</h3>
 				</div>
 				<div class="panel-body">
@@ -71,9 +72,11 @@ function createRoom(data){
 			</div>
 		</div>`);
 
-	if(data.hasOwnProperty('id')) {
+	if(data.hasOwnProperty('id') && type === 'Update') {
+		console.log('Update');
 		$('#room-'+data.id).replaceWith(roomElement);
 	} else if ($('.room').length) {
+		console.log('Add');
 		$('.room').last().after(roomElement);
 	} else {
 		$('#drag').append(roomElement);
@@ -94,7 +97,7 @@ function createIcon(data){
 	let returnString = '';
 
 	if(data){
-		data = JSON.parse(data);
+		data = (data instanceof Array)? data : JSON.parse(data);
 
 		for(let _key in data){
 			returnString += `
@@ -346,7 +349,7 @@ $('#room_form').submit(function(event){
 			let response = data.responseMessage;
 
 			if(response.status === 'success'){
-				createRoom(response.data);
+				createRoom(response.data,response.method);
 			}
 
 			$('#addRoomModal').modal('hide');
@@ -372,6 +375,7 @@ $('.btn-add').click(function(){
 	$('#room_form')[0].reset();
 	$('#room_form').find('input[type="checkbox"]').uncheck();
 	$('#room_form #id').removeAttr('name');
+	$('#room_form').find('button[type="submit"]').html('Add');
 });
 
 $('#drag').on("click", ".drag-filter", function(){
@@ -420,12 +424,16 @@ $('#drag').on("click", ".drag-edit", function(){
 
 			if(response.hasOwnProperty('data') && ! $.isEmptyObject(response.data)) {
 				let data = response.data;
-				response.data.facilities = response.data.facilities.split(",");
 
 				for(let _key in data){
 					if(data[_key] instanceof Array){
+
 						$("#room_form").find('input[type="checkbox"]').each(function(){
-							if($.inArray($(this).val(), data[_key]) > -1){
+							let value = $(this).val();
+							let result = $.grep(data[_key], function(e){
+								return e.id == value;
+							 });
+							if(result.length > 0){
 								$(this).attr('checked', 'checked');
 							} else {
 								$(this).removeAttr('checked');
@@ -585,7 +593,6 @@ $('#image_form').submit(function(event){
 				$('#room-'+id).find('.room-images').children().remove();
 
 				$.each(response.data, function(){
-					console.log(this.path);
 					imageElement += `
 						<div class="room-image col-md-6 col-sm-12">
 							<img src="/${this.path +'/thumb.'+ this.file_extension}" />

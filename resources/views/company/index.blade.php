@@ -33,7 +33,7 @@
 									@foreach($company->facilities as $facility)
 										<div class="col-md-1 tag">
 											<div class="tag-container">
-												<img src="{{ $facility }}">
+												<img src="{{ $facility['icon_path'] }}">
 											</div>
 										</div>
 									@endforeach

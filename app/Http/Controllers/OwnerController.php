@@ -23,11 +23,8 @@ class OwnerController extends Controller
 
     public function index()
     {
-        $selectedFacilites = ($company = $this->user()->company)? $company->facilities : "";
+        $selectedFacilites = ($company = $this->user()->company)? $company->facilities_id : [];
         $facilities = Facility::all();
-
-        $selectedFacilites = array_map('intval', explode(",", $selectedFacilites));
-        $test = array();
 
         foreach ($facilities as $facility) {
             if(in_array($facility->id, $selectedFacilites)){
@@ -44,23 +41,6 @@ class OwnerController extends Controller
     {
         $allFacilities = Facility::all();
         $rooms = ($company = $this->user()->company)? $company->rooms : array();
-
-        $_facilities = array();
-
-        if(!empty($rooms)) {
-            $fac = $allFacilities->keyBy('id');
-
-            foreach ($rooms as $room) {
-                $_tempFacilityPath = array();
-
-                foreach (explode(",", $room->facilities) as $facility) {
-                    $_temp = $fac->get($facility);
-                    $_tempFacilityPath[] = $_temp->icon_path;
-                }
-
-                $room->facilities = $_tempFacilityPath;
-            }
-        }
 
         return view('owner.rooms')->with(compact('allFacilities', 'rooms'));
     }
@@ -124,15 +104,14 @@ class OwnerController extends Controller
         $data['facilities'] = implode(",",$data['facilities']);
 
         if(request()->has('id') && $this->user()->company->rooms()->find(request()->id)->update($data)) { 
-           $data['id'] = request()->id;
-           $responseData = $data;
+            $data['id'] = request()->id;
+            $data['facilities'] = Facility::find(explode(",",$data['facilities']),['icon_path'])->toJson();
+            $responseData = $data;
         } else {
             $responseData = $this->user()->company->rooms()->create($data)->toArray();
         }
 
         if($responseData){
-            $responseData['facilities'] = Facility::find(explode(",",$responseData['facilities']),['icon_path'])->toJson();
-
             $responseMessage['status'] = 'success';
             $responseMessage['data'] = $responseData;
             $responseMessage['method'] = $type == 'add' ? 'Adde' : 'Update';

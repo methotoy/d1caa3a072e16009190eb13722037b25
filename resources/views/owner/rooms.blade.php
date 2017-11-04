@@ -50,7 +50,7 @@
 											<div class="col-sm-12">
 												@foreach($room->facilities as $facility)
 													<span class="tag-icon">
-														<img src="{{ $facility }}" class="tips">
+														<img src="{{ $facility['icon_path'] }}" class="tips">
 													</span>
 												@endforeach
 											</div>
@@ -125,8 +125,6 @@
 										</div>
 									@endforeach
 								</div>
-
-								<
 
 								<div class="form-group">
 									<button type="submit" class="btn btn-info pull-right">Add</button>

@@ -25,7 +25,7 @@
 						<div class="col-sm-12">
 							@foreach($company->facilities as $facility)
 								<span class="tag-icon">
-									<img src="{{ $facility }}" class="tips">
+									<img src="{{ $facility['icon_path'] }}" class="tips">
 								</span>
 							@endforeach
 						</div>
@@ -81,7 +81,7 @@
 								<div class="tag-container">
 									@foreach($room->facilities as $facility)
 										<span class="tag-icon">
-											<img src="{{ $facility }}" class="tips">
+											<img src="{{ $facility['icon_path'] }}" class="tips">
 										</span>
 									@endforeach
 								</div>

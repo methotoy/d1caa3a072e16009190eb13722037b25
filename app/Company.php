@@ -35,11 +35,18 @@ class Company extends Model
 
         foreach($_arrValue as $value) {
             $_temp = $facilities->get($value);
-            $_tempFacilityPath[] = $_temp->icon_path;
+            $_tempFacilityPath[] = array(
+                'id'    => $_temp->id,
+                'icon_path'  => $_temp->icon_path
+            );
         }
 
 
         return $_tempFacilityPath;
         
+    }
+
+    public function getFacilitiesIdAttribute(){
+        return array_column($this->facilities, 'id');
     }
 }
