@@ -199,9 +199,9 @@ class OwnerController extends Controller
 
         if(request()->has('deleted_images') && request()->deleted_images) {
             $_images = Image::find(explode(",", request()->deleted_images));
-            
+
             foreach ($_images as $image) {
-                Storage::delete($image->path);
+                \File::deleteDirectory(public_path($image->path));
             }
 
             if(Image::destroy(explode(",", request()->deleted_images))) {

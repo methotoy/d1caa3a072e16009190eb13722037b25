@@ -72,7 +72,9 @@
 					<div class="row room-details-container">
 						<div class="col-lg-3 col-md-3">
 							<div class="image-container">
-								<img src="/img/hotel.jpg"/>
+								@if(count($room->images))
+								<img src="/{{ $room->images[0]->path }}/large.{{ $room->images[0]->file_extension }}"/>
+								@endif
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-5">
