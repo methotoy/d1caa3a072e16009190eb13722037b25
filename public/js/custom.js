@@ -114,3 +114,7 @@ $('.btn-book').on('click', function(e){
 		show: true
 	});
 });
+
+$("#datepicker").datepicker();
+
+$("#datepicker2").datepicker();

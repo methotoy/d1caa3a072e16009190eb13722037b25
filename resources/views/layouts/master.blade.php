@@ -4,6 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="{{ asset('/css/style.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('/css/jquery-ui.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('/css/jquery-ui.structure.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('/css/jquery-ui.theme.min.css') }}" rel="stylesheet">
 		
 		<title>@yield('title')</title>
 
@@ -19,6 +22,7 @@
 
 		@include('layouts.footer')
 
+		<script src="{{ asset('/js/jquery-ui.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('/js/custom.js') }}"></script>
 	</body>

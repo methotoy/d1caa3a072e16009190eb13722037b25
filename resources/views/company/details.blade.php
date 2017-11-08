@@ -179,7 +179,8 @@
 					<h4 class="modal-title">Book Form</h4>
 				</div>
 				<div class="modal-body">
-					
+					<p>Check In: <input type="text" id="datepicker"></p>
+					<p>Check Out: <input type="text" id="datepicker2"></p>
 				</div>
 			</div>
 		</div>
