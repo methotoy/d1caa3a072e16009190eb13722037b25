@@ -55,7 +55,7 @@ class SigninController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function signin(Request $request)
+    public function signin(Request $request, $type = null)
     {
         $this->validateLogin($request);
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -67,7 +67,12 @@ class SigninController extends Controller
         }
         if ($this->attemptLogin($request)) {
             if ($this->guard()->user()->isNormal()) {
-                return $this->sendLoginResponse($request);
+                if($type && $type === 'information') {
+                    $this->sendLoginResponse($request);
+                    return 'success';
+                } else {
+                    return $this->sendLoginResponse($request);
+                }
             } else {
                 $this->guard()->logout();
             }

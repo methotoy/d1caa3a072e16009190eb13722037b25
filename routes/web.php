@@ -21,7 +21,7 @@ Route::prefix('hotels')->group(function (){
 
 // Authentication Routes...
 Route::get('signin', 'NormalUserAuth\SigninController@showSigninForm')->name('signin');
-Route::post('signin', 'NormalUserAuth\SigninController@signin');
+Route::post('signin/{type?}', 'NormalUserAuth\SigninController@signin');
 Route::post('signout', 'NormalUserAuth\SigninController@signout')->name('signout');
 
 // Registration Routes...

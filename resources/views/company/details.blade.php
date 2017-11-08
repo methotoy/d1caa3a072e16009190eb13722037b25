@@ -3,7 +3,6 @@
 @section('title','Hotels')
 
 @section('content')
-
 	<section id="hotel-details">
 		<article class="container">
 			<div class="row">
@@ -95,7 +94,11 @@
 								<p class="text-muted">Price / 1 night(s)</p>
 								<br>
 								<p>Capacity: <i class="fa fa-male"></i> x{{ $room->capacity }}</p>
-								<button class="btn btn-success btn-lg btn-block"><i class="fa fa-hand-o-right"></i> Book</button>
+								@if(Auth::guard()->check())
+									<button class="btn btn-success btn-lg btn-block btn-book"><i class="fa fa-hand-o-right"></i> Book</button>
+								@else
+									<button class="btn btn-success btn-lg btn-block btn-sign-up"><i class="fa fa-hand-o-right"></i> Book</button>
+								@endif
 								<button class="btn btn-info btn-lg btn-block"><i class="fa fa-plus-circle"></i> Read More</button>
 							</div>
 						</div>
@@ -109,4 +112,77 @@
 			</div>
 		</article> 
 	</section>
+
+	{{-- SIGN UP MODAL --}}
+	<div class="modal fade" id="signUpModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default">
+						<div class="panel-heading"> Sign In</div>
+						<div class="panel-body">
+							<form class="form-horizontal" method="POST" id="signInForm">
+								{{ csrf_field() }}
+
+								<div class="form-group">
+									<div class="col-md-12">
+											<input id="email" type="email" class="form-control" name="email" required autofocus placeholder="Email Address">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<input id="password" type="password" class="form-control" name="password" required placeholder="Password">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" name="remember"> Remember Me
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<button type="submit" class="btn btn-primary btn-block">Sign In</button>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<a href="{{ url('/password/reset') }}" class="btn btn-link btn-block">Forgot Password?</a>
+										<a href="{{ url('/signup') }}" class="btn btn-link btn-block">No Account? Sign up now!</a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- END SIGN UP MODAL --}}
+
+	{{-- BOOK MODAL --}}
+	<div class="modal fade" id="bookModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Book Form</h4>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- END BOOK MODAL --}}
 @endsection

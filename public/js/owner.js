@@ -1,26 +1,3 @@
-baseUrl = window.location.origin;
-
-function notify(type,title,message,icon = null) {
-	$.notify({
-		title: title,
-		message: message,
-		icon: icon
-	},{
-		type: type,
-		z_index: 10000,
-		placement: {
-			from: 'bottom',
-			align: 'right'
-		},
-		animate: {
-			enter: 'animated fadeInUp',
-			exit: 'animated fadeOutUp'
-		},
-		delay: 5000,
-		mouse_over: 'pause'
-	});
-}
-
 function createRoom(data,type){
 	// <i class="fa fa-arrows pull-right drag-handle" aria-hidden="true" data-id="${data.id}"></i>
 	// <i class="fa fa-eye pull-right drag-view" aria-hidden="true" data-id="${data.id}"></i>
