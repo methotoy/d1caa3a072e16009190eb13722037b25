@@ -95,7 +95,7 @@
 								<br>
 								<p>Capacity: <i class="fa fa-male"></i> x{{ $room->capacity }}</p>
 								@if(Auth::guard()->check())
-									<button class="btn btn-success btn-lg btn-block btn-book"><i class="fa fa-hand-o-right"></i> Book</button>
+									<button class="btn btn-success btn-lg btn-block btn-book" data-capacity="{{ $room->capacity }}" data-id="{{ $room->id }}"><i class="fa fa-hand-o-right"></i> Book</button>
 								@else
 									<button class="btn btn-success btn-lg btn-block btn-sign-up"><i class="fa fa-hand-o-right"></i> Book</button>
 								@endif
@@ -179,8 +179,45 @@
 					<h4 class="modal-title">Book Form</h4>
 				</div>
 				<div class="modal-body">
-					<p>Check In: <input type="text" id="datepicker"></p>
-					<p>Check Out: <input type="text" id="datepicker2"></p>
+					<input type="hidden" id="capacity">
+					<form id="bookForm" method="POST" class="form-horizontal" role="form">
+						{{ csrf_field() }}
+						<input type="hidden" id="room_id" name="id">
+
+						<div class="form-group">
+							<label for="datepicker" class="col-sm-3 control-label">Check In:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="datepicker" name="check_in" readonly required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="datepicker2" class="col-sm-3 control-label">Check Out:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="datepicker2" name="check_out" readonly required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="no_rooms" class="col-sm-3 control-label">No of Rooms:</label>
+							<div class="col-sm-9">
+								<select class="form-control" id="no_rooms" name="no_rooms" required>
+									<option selected disabled value="">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-primary pull-right">Submit</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

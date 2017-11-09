@@ -108,6 +108,8 @@ $('#signInForm').on('submit', function(e){
 });
 
 $('.btn-book').on('click', function(e){
+	$('#capacity').val($(this).data().capacity);
+	$('#room_id').val($(this).data().id);
 	$("#bookModal").modal({
 		backdrop: 'static',
 		keyboard: false,
@@ -116,5 +118,31 @@ $('.btn-book').on('click', function(e){
 });
 
 $("#datepicker").datepicker();
+$("#datepicker").datepicker('setDate', 'today');
 
 $("#datepicker2").datepicker();
+$("#datepicker2").datepicker('setDate', 'today' + 1);
+
+$('#no_rooms').on('change', function(e){
+	let capacity = parseInt($('#capacity').val());
+	let no_rooms = parseInt($(this).val());
+	let html = '';
+
+	for(let i = 0; i < no_rooms; i++){
+		html += `
+			<div class="form-group room_generated">
+				<label class="col-sm-3 control-label">Room #${i+1}:</label>
+				<div class="col-sm-9">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-male"></i> &nbsp;No. of Guest	</span>
+						<input type="number" class="form-control" min="0" max="${capacity}" name="room_nums[]" required>
+					</div>
+				</div>
+			</div>
+		`;
+	}
+
+	$(".room_generated").remove();
+
+	$(this).parent().parent().after($(html));
+});
